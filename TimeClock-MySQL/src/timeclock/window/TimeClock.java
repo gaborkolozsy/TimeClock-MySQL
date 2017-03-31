@@ -1623,23 +1623,24 @@ public class TimeClock extends javax.swing.JFrame {
      */
     // <editor-fold defaultstate="collapsed" desc="DB login update">
     private void databaseNewLoginUpdateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databaseNewLoginUpdateButtonActionPerformed
-        int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
         String password = "";
         char[] p = databaseUpdateNewPassword.getPassword();
         for (char q : p) {
             password += q;
         }
+        
         String cPassword = "";
         char[] cp = databaseUpdateConfirmPassword.getPassword();
         for (char q : cp) {
             cPassword += q;
         }
+        
+        int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
         if (password.equals(cPassword)) {
             try {
                 userRep = new UserRepositoryBINImpl();
-                User user = userRep.findById(id);
                 userRep.update(new User(id, databaseUpadateNewUsername.getText(), password));
-                user = userRep.findById(id);
+                User user = userRep.findById(id);
                 if (user.getPassword().equals(password)) {
                     databaseNewLoginUpdateButton.setSelected(true);
                     databaseNewLoginUpdateButton.setText("Up to date");
