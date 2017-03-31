@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 /**
  * The <strong>Info</strong> interface provide a method for getting 
@@ -16,8 +16,8 @@ package timeclock.interfaces;
  * @version 1.0
  * @param <T> an {@code Object} as a returning type
  * @param <E> an {@code Object} for information searching
- * @see timeclock.interfaces.PayInfoRepository
- * @see timeclock.interfaces.TimeInfoRepository
+ * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
+ * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
  * @see java.sql.SQLException
  */
 public interface Info<T,E> {
@@ -30,8 +30,8 @@ public interface Info<T,E> {
      * is in the database
      * @return an info {@code Object}
      * @throws Exception 
-     * @see timeclock.interfaces.PayInfoRepository
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      */
     T getInfo(E e) throws Exception;
     
@@ -40,8 +40,8 @@ public interface Info<T,E> {
      * and database {@code Connection} too.
      * 
      * @throws Exception 
-     * @see timeclock.interfaces.PayInfoRepository
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      */
     void close() throws Exception;
     

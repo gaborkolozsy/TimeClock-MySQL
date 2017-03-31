@@ -2,18 +2,18 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.dao;
+package hu.gaborkolozsy.timeclock.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import timeclock.interfaces.JobRepository;
-import timeclock.job.Job;
+import hu.gaborkolozsy.timeclock.daos.JobRepository;
+import hu.gaborkolozsy.timeclock.model.Job;
 
 /**
- * This object implementing the {@link timeclock.interfaces.JobRepository}
+ * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.JobRepository}
  * interface. 
  * <p>
  * It manages the relationship between the {@code Job} object
@@ -21,8 +21,8 @@ import timeclock.job.Job;
  * 
  * @author Kolozsy Gábor
  * @version 1.0
- * @see timeclock.job.Job
- * @see timeclock.interfaces.JobRepository
+ * @see hu.gaborkolozsy.timeclock.model.Job
+ * @see hu.gaborkolozsy.timeclock.daos.JobRepository
  * @see java.sql.Connection
  * @see java.sql.PreparedStatement
  * @see java.sql.ResultSet
@@ -151,11 +151,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param developerFirstName for getting id
      * @return the developer id for insert
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public int getDeveloperId(String developerFirstName) throws SQLException {
@@ -168,10 +168,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @return maximum {@code Job} id from {@code Job} table
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public int getMaxId() throws SQLException {
@@ -183,11 +183,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @return {@code true} is if the {@code Job_number} not used
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public boolean checkJobNumber(Job job) throws SQLException {
@@ -200,11 +200,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @return {@code true} is the {@code Status} column is null
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public boolean isStatusNull(Job job) throws SQLException {
@@ -221,11 +221,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @return the {@code Job}'s status("WIP" or "Done")
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public String checkStatus(Job job) throws SQLException {
@@ -241,10 +241,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for inserting
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void insert(Job job) throws SQLException {
@@ -261,10 +261,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void updateStartAt(Job job) throws SQLException {
@@ -277,10 +277,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void updateEndAtAndStatus(Job job) throws SQLException {
@@ -294,10 +294,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void updateToTime(Job job) throws SQLException {
@@ -309,10 +309,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void updateToTimeByWIP(Job job) throws SQLException {
@@ -324,10 +324,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @param job for identification the correct {@code Job}
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void updateInPart(Job job) throws SQLException {
@@ -339,9 +339,9 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void deleteLastIncorrectObject() throws SQLException {
@@ -350,9 +350,9 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository 
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository 
      */
     @Override
     public void autoIncrement() throws SQLException {
@@ -360,9 +360,9 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.JobRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
      * @throws SQLException 
-     * @see timeclock.interfaces.JobRepository
+     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
      */
     @Override
     public void close() throws SQLException {

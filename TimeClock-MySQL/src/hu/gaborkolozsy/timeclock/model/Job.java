@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.job;
+package hu.gaborkolozsy.timeclock.model;
 
 import java.time.LocalDateTime;
 

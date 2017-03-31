@@ -2,8 +2,24 @@
  * Copyright (c) 2016, Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.window;
+package hu.gaborkolozsy.timeclock;
 
+import hu.gaborkolozsy.timeclock.config.Config;
+import hu.gaborkolozsy.timeclock.dao.impl.JobRepositoryJDBCImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.PayInfoRepositoryJDBCImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.PayRepositoryJDBCImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.TimeInfoRepositoryJDBCImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.UserRepositoryBINImpl;
+import hu.gaborkolozsy.timeclock.daos.JobRepository;
+import hu.gaborkolozsy.timeclock.daos.PayInfoRepository;
+import hu.gaborkolozsy.timeclock.daos.PayRepository;
+import hu.gaborkolozsy.timeclock.daos.TimeInfoRepository;
+import hu.gaborkolozsy.timeclock.daos.UserRepository;
+import hu.gaborkolozsy.timeclock.model.Job;
+import hu.gaborkolozsy.timeclock.model.Pay;
+import hu.gaborkolozsy.timeclock.model.PayInfo;
+import hu.gaborkolozsy.timeclock.model.TimeInfo;
+import hu.gaborkolozsy.timeclock.model.User;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.io.File;
@@ -22,23 +38,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import timeclock.config.Config;
-import timeclock.dao.JobRepositoryJDBCImpl;
-import timeclock.dao.PayInfoRepositoryJDBCImpl;
-import timeclock.dao.PayRepositoryJDBCImpl;
-import timeclock.dao.TimeInfoRepositoryJDBCImpl;
-import timeclock.dao.UserRepositoryBINImpl;
-import timeclock.exception.TimeClockException;
-import timeclock.interfaces.JobRepository;
-import timeclock.interfaces.PayInfoRepository;
-import timeclock.interfaces.PayRepository;
-import timeclock.interfaces.TimeInfoRepository;
-import timeclock.interfaces.UserRepository;
-import timeclock.job.Job;
-import timeclock.pay.Pay;
-import timeclock.query.PayInfo;
-import timeclock.query.TimeInfo;
-import timeclock.user.User;
 
 /**
  * Calculates the working time and store this in MySQL database.
@@ -46,16 +45,16 @@ import timeclock.user.User;
  * @author Kolozsy Gábor
  * @email kolozsygabor@gmail.com
  * @version 1.2.2
- * @see timeclock.job.Job
- * @see timeclock.interfaces.JobRepository
- * @see timeclock.dao.JobRepositoryJDBCImpl
- * @see timeclock.pay.Pay
- * @see timeclock.interfaces.PayRepository
- * @see timeclock.dao.PayRepositoryJDBCImpl
- * @see timeclock.user.User
- * @see timeclock.interfaces.UserRepository
- * @see timeclock.dao.UserRepositoryBINImpl
- * @see timeclock.config.Config
+ * @see hu.gaborkolozsy.timeclock.model.Job
+ * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+ * @see hu.gaborkolozsy.timeclock.dao.impl.JobRepositoryJDBCImpl
+ * @see hu.gaborkolozsy.timeclock.model.Pay
+ * @see hu.gaborkolozsy.timeclock.daos.PayRepository
+ * @see hu.gaborkolozsy.timeclock.dao.impl.PayRepositoryJDBCImpl
+ * @see hu.gaborkolozsy.timeclock.model.User
+ * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+ * @see hu.gaborkolozsy.timeclock.dao.impl.UserRepositoryBINImpl
+ * @see hu.gaborkolozsy.timeclock.config.Config
  * @see java.util.regex.Pattern
  * @see java.util.regex.Matcher
  * @see java.util.Date

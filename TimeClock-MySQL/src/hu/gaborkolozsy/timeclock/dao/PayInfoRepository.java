@@ -2,11 +2,11 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 import java.sql.SQLException;
-import timeclock.query.PayInfo;
-import timeclock.job.Job;
+import hu.gaborkolozsy.timeclock.model.PayInfo;
+import hu.gaborkolozsy.timeclock.model.Job;
 
 /**
  * The <strong>PayInfoRepository</strong> interface extends the 
@@ -28,8 +28,8 @@ import timeclock.job.Job;
  * @version 2.1
  * @param <T> an {@code Object} as a returning type
  * @param <E> an {@code Object} for information searching
- * @see timeclock.interfaces.Info
- * @see timeclock.query.PayInfo
+ * @see hu.gaborkolozsy.timeclock.daos.Info
+ * @see hu.gaborkolozsy.timeclock.model.PayInfo
  * @see timeclock.dao.PayInfoRepositoryJDBCImpl
  * @see java.sql.SQLException
  */
@@ -42,8 +42,8 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * @param e to identification the correct {@code Object}
      * @return a new {@code Object}
      * @throws SQLException 
-     * @see timeclock.job.Job
-     * @see timeclock.query.PayInfo
+     * @see hu.gaborkolozsy.timeclock.model.Job
+     * @see hu.gaborkolozsy.timeclock.model.PayInfo
      * @see timeclock.dao.PayInfoRepositoryJDBCImpl
      */
     @Override
@@ -57,8 +57,8 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * @param status to identification the correct {@code Job} 
      * @return a new {@code PayInfo} object
      * @throws SQLException 
-     * @see timeclock.job.Job
-     * @see timeclock.query.PayInfo
+     * @see hu.gaborkolozsy.timeclock.model.Job
+     * @see hu.gaborkolozsy.timeclock.model.PayInfo
      * @see timeclock.dao.PayInfoRepositoryJDBCImpl
      * @deprecated <strong>not use this method</strong>
      */
@@ -80,7 +80,7 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * @return the {@code hourlyPay} data member for {@code PayInfo} 
      * object
      * @throws SQLException
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.PayInfoRepositoryJDBCImpl
      * @deprecated <strong>not use this method</strong>
      */
@@ -135,7 +135,7 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * from the database
      * @return the <code>Job_id</code> from the database as integer value
      * @throws SQLException
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.PayInfoRepositoryJDBCImpl
      * @deprecated <strong>not use this method</strong>
      */

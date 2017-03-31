@@ -2,7 +2,7 @@
  * Copyright (c) 2016, Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.user;
+package hu.gaborkolozsy.timeclock.model;
 
 import java.io.Serializable;
 

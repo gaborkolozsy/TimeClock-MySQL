@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.query;
+package hu.gaborkolozsy.timeclock.model;
 
 /**
  * This object declared all data members for time calculating.

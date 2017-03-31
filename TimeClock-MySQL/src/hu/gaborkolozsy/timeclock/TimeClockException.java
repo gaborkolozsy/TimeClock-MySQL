@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.exception;
+package hu.gaborkolozsy.timeclock;
 
 /**
  * An exception that a method can away throw as a new exception. 

@@ -1,2 +1,0 @@
-/*INSERT INTO Job3 (Job_id, Branch, Project, Package, Class, Job_number, Start_at, End_at, To_time, Status, Comment, Developer_id) VALUES ('4', '?', '?', '?', '?', '6', '2016.01.01', '2016.01.01', '00:00', '?', '?', '1')*/
-ALTER TABLE `TimeClock`.`Job` DROP COLUMN `Name`, ADD COLUMN `Status` VARCHAR(45) NULL AFTER `Lasted`;

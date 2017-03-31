@@ -2,10 +2,10 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 import java.sql.SQLException;
-import timeclock.job.Job;
+import hu.gaborkolozsy.timeclock.model.Job;
 
 /**
  * The <strong>JobRepository</strong> interface extends the 
@@ -18,8 +18,8 @@ import timeclock.job.Job;
  * @author Kolozsy Gábor
  * @version 2.0
  * @param <E> any {@code Object}
- * @see timeclock.job.Job
- * @see timeclock.interfaces.Repository
+ * @see hu.gaborkolozsy.timeclock.model.Job
+ * @see hu.gaborkolozsy.timeclock.daos.Repository
  * @see timeclock.dao.JobRepositoryJDBCImpl
  * @see java.sql.SQLException
  */
@@ -43,7 +43,7 @@ public interface JobRepository<E> extends Repository<E> {
      * @return maximum {@code Job_id} for delete 
      * {@code deleteLastIncorrectJob()} method
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     @Override
@@ -56,7 +56,7 @@ public interface JobRepository<E> extends Repository<E> {
      * @param job for identification the {@code Job}
      * @return {@code true} if the {@code Job_number} is not exists
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     boolean checkJobNumber(Job job) throws SQLException;
@@ -67,7 +67,7 @@ public interface JobRepository<E> extends Repository<E> {
      * @param job for identification the {@code Job}
      * @return {@code true} if the {@code Status} is null
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     boolean isStatusNull(Job job) throws SQLException;
@@ -79,7 +79,7 @@ public interface JobRepository<E> extends Repository<E> {
      * @param job for identification the {@code Job}
      * @return the {@code Job}'s status
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     String checkStatus(Job job) throws SQLException;
@@ -89,8 +89,8 @@ public interface JobRepository<E> extends Repository<E> {
      * 
      * @param e for inserting it
      * @throws SQLException 
-     * @see timeclock.job.Job
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.model.Job
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     @Override
@@ -102,7 +102,7 @@ public interface JobRepository<E> extends Repository<E> {
      * 
      * @param job for identification the {@code Job}
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     void updateStartAt(Job job) throws SQLException;
@@ -113,7 +113,7 @@ public interface JobRepository<E> extends Repository<E> {
      * 
      * @param job for identification the {@code Job}
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     void updateEndAtAndStatus(Job job) throws SQLException;
@@ -124,7 +124,7 @@ public interface JobRepository<E> extends Repository<E> {
      * 
      * @param job for identification the {@code Job}
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     void updateToTime(Job job) throws SQLException;
@@ -135,7 +135,7 @@ public interface JobRepository<E> extends Repository<E> {
      * 
      * @param job for identification the {@code Job}
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     void updateToTimeByWIP(Job job) throws SQLException;
@@ -145,7 +145,7 @@ public interface JobRepository<E> extends Repository<E> {
      * 
      * @param job for identification the {@code Job}
      * @throws SQLException 
-     * @see timeclock.job.Job
+     * @see hu.gaborkolozsy.timeclock.model.Job
      * @see timeclock.dao.JobRepositoryJDBCImpls 
      */
     void updateInPart(Job job) throws SQLException;
@@ -155,7 +155,7 @@ public interface JobRepository<E> extends Repository<E> {
      * of {@code TimeClock} schema in MySQL database.
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.JobRepositoryJDBCImpls 
      */
     @Override
@@ -169,7 +169,7 @@ public interface JobRepository<E> extends Repository<E> {
      * will correct again.
      * 
      * @throws SQLException
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.JobRepositoryJDBCImpls
      */
     @Override
@@ -180,7 +180,7 @@ public interface JobRepository<E> extends Repository<E> {
      * and database <code>Connection</code> too.
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.JobRepositoryJDBCImpl
      */
     @Override

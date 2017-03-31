@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 /**
  * The <strong>Repository</strong> interface provide a method for getting 
@@ -21,8 +21,8 @@ package timeclock.interfaces;
  * @author Kolozsy Gábor
  * @version 1.0
  * @param <E> any {@code Object}
- * @see timeclock.interfaces.JobRepository
- * @see timeclock.interfaces.PayRepository
+ * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+ * @see hu.gaborkolozsy.timeclock.daos.PayRepository
  * @see timeclock.dao.JobRepositoryJDBCImpl
  * @see timeclock.dao.PayRepositoryJDBCImpl
  * @see java.sql.Exception

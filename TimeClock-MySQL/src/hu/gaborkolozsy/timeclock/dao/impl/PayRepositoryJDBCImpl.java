@@ -2,17 +2,17 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.dao;
+package hu.gaborkolozsy.timeclock.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import timeclock.interfaces.PayRepository;
-import timeclock.pay.Pay;
+import hu.gaborkolozsy.timeclock.daos.PayRepository;
+import hu.gaborkolozsy.timeclock.model.Pay;
 
 /**
- * This object implementing the {@link timeclock.interfaces.PayRepository}
+ * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.PayRepository}
  * interface. 
  * <p>
  * It manages the relationship between the {@code Pay} object
@@ -20,8 +20,8 @@ import timeclock.pay.Pay;
  * 
  * @author Kolozsy Gábor
  * @version 1.0
- * @see timeclock.pay.Pay
- * @see timeclock.interfaces.PayRepository
+ * @see hu.gaborkolozsy.timeclock.model.Pay
+ * @see hu.gaborkolozsy.timeclock.daos.PayRepository
  * @see java.sql.Connection
  * @see java.sql.PreparedStatement
  * @see java.sql.ResultSet
@@ -79,10 +79,10 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.PayRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
      * @throws SQLException 
-     * @see timeclock.pay.Pay
-     * @see timeclock.interfaces.PayRepository
+     * @see hu.gaborkolozsy.timeclock.model.Pay
+     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
      */
     @Override
     public int getMaxId() throws SQLException {
@@ -94,10 +94,10 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.PayRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
      * @param pay for inserting
      * @throws SQLException 
-     * @see timeclock.interfaces.PayRepository
+     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
      */
     @Override
     public void insert(Pay pay) throws SQLException {
@@ -107,9 +107,9 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.PayRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
      * @throws SQLException 
-     * @see timeclock.interfaces.PayRepository
+     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
      */
     @Override
     public void deleteLastIncorrectObject() throws SQLException {
@@ -118,9 +118,9 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.PayRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
      * @throws SQLException 
-     * @see timeclock.interfaces.PayRepository 
+     * @see hu.gaborkolozsy.timeclock.daos.PayRepository 
      */
     @Override
     public void autoIncrement() throws SQLException {
@@ -128,9 +128,9 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.PayRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
      * @throws SQLException 
-     * @see timeclock.interfaces.PayRepository
+     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
      */
     @Override
     public void close() throws SQLException {

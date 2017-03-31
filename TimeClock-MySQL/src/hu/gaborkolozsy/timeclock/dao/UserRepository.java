@@ -2,11 +2,11 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 import java.io.FileNotFoundException;
-import timeclock.exception.TimeClockException;
-import timeclock.user.User;
+import hu.gaborkolozsy.timeclock.TimeClockException;
+import hu.gaborkolozsy.timeclock.model.User;
 
 /**
  * The <strong>UserRepository</strong> interface provide some method 
@@ -15,10 +15,10 @@ import timeclock.user.User;
  * 
  * @author Kolozsy Gábor
  * @version 1.0
- * @see timeclock.user.User
+ * @see hu.gaborkolozsy.timeclock.model.User
  * @see timeclock.dao.UserRepositoryBINImpl
  * @see java.io.FileNotFoundException
- * @see timeclock.exception.TimeClockException
+ * @see hu.gaborkolozsy.timeclock.TimeClockException
  */
 public interface UserRepository {
     
@@ -29,10 +29,10 @@ public interface UserRepository {
      * @return a {@code User} object
      * @throws TimeClockException
      * @throws FileNotFoundException 
-     * @see timeclock.user.User
+     * @see hu.gaborkolozsy.timeclock.model.User
      * @see timeclock.dao.UserRepositoryBINImpl
      * @see java.io.FileNotFoundException
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     User findByUserName(String userName) throws TimeClockException, FileNotFoundException;
     
@@ -43,10 +43,10 @@ public interface UserRepository {
      * @return a {@code User} object
      * @throws TimeClockException
      * @throws FileNotFoundException 
-     * @see timeclock.user.User
+     * @see hu.gaborkolozsy.timeclock.model.User
      * @see timeclock.dao.UserRepositoryBINImpl
      * @see java.io.FileNotFoundException
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     User findById(int id) throws TimeClockException, FileNotFoundException;
     
@@ -59,7 +59,7 @@ public interface UserRepository {
      * @throws FileNotFoundException 
      * @see timeclock.dao.UserRepositoryBINImpl
      * @see java.io.FileNotFoundException
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     boolean findId(int id) throws TimeClockException, FileNotFoundException;
     
@@ -69,10 +69,10 @@ public interface UserRepository {
      * @param user for saveing
      * @throws TimeClockException
      * @throws FileNotFoundException 
-     * @see timeclock.user.User
+     * @see hu.gaborkolozsy.timeclock.model.User
      * @see timeclock.dao.UserRepositoryBINImpl
      * @see java.io.FileNotFoundException
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     void save(User user) throws TimeClockException, FileNotFoundException;
     
@@ -84,7 +84,7 @@ public interface UserRepository {
      * @throws FileNotFoundException
      * @see timeclock.dao.UserRepositoryBINImpl
      * @see java.io.FileNotFoundException
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      * @deprecated <strong>not use this method</strong>
      */
     @Deprecated
@@ -96,10 +96,10 @@ public interface UserRepository {
      * @param user for updateing
      * @throws TimeClockException
      * @throws FileNotFoundException 
-     * @see timeclock.user.User
+     * @see hu.gaborkolozsy.timeclock.model.User
      * @see timeclock.dao.UserRepositoryBINImpl
      * @see java.io.FileNotFoundException
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     void update(User user) throws TimeClockException, FileNotFoundException;
 }

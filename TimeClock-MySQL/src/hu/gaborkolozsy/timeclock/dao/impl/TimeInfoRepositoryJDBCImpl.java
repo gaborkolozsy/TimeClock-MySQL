@@ -2,18 +2,18 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.dao;
+package hu.gaborkolozsy.timeclock.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import timeclock.interfaces.TimeInfoRepository;
-import timeclock.job.Job;
-import timeclock.query.TimeInfo;
+import hu.gaborkolozsy.timeclock.daos.TimeInfoRepository;
+import hu.gaborkolozsy.timeclock.model.Job;
+import hu.gaborkolozsy.timeclock.model.TimeInfo;
 
 /**
- * This object implementing the {@link timeclock.interfaces.TimeInfoRepository}
+ * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}
  * generic interface. 
  * <p>
  * It manages the relationship between the {@code TimeInfo} 
@@ -24,8 +24,8 @@ import timeclock.query.TimeInfo;
  * 
  * @author Kolozsy Gábor
  * @version 2.1
- * @see timeclock.query.TimeInfo
- * @see timeclock.interfaces.TimeInfoRepository
+ * @see hu.gaborkolozsy.timeclock.model.TimeInfo
+ * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
  * @see java.sql.Connection
  * @see java.sql.PreparedStatement
  * @see java.sql.ResultSet
@@ -88,13 +88,13 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.TimeInfoRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
      * 
      * @param e for identification the correct {@code Job}
      * 
      * @return a new {@code TimeInfo} object
      * @throws SQLException 
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      */
     @Override
     public TimeInfo getInfo(Job e) throws SQLException {
@@ -115,14 +115,14 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.TimeInfoRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
      * 
      * @param job for identification the correct {@code Job}
      * @param status for identification the correct {@code Job}
      * 
      * @return a new {@code TimeInfo} object
      * @throws SQLException 
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      * @deprecated <strong>not use this method</strong>
      */
     @Deprecated
@@ -136,14 +136,14 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.TimeInfoRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
      * 
      * @param job for identification the correct {@code Job}
      * 
      * @return value of {@code To_time} column as a {@code String} from 
      * {@code Job} table of {@code TimeClock} schema
      * @throws SQLException 
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      * @deprecated <strong>not use this method</strong>
      */
     @Deprecated
@@ -161,14 +161,14 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.TimeInfoRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
      * 
      * @param Project for selected the correct {@code Job}
      * 
      * @return value of {@code averageTime} as a {@code String} from 
      * {@code Job} table of {@code TimeClock} schema
      * @throws SQLException 
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      * @deprecated <strong>not use this method</strong>
      */
     @Deprecated
@@ -183,14 +183,14 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.TimeInfoRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
      * 
      * @param Project for selected the correct {@code Job}
      * 
      * @return value of {@code averageTime} as a {@code String} from 
      * {@code Job} table of {@code TimeClock} schema
      * @throws SQLException 
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      * @deprecated <strong>not use this method</strong>
      */
     @Deprecated
@@ -206,10 +206,10 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.TimeInfoRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.TimeInfoRepository
+     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
      */
     @Override
     public void close() throws SQLException {

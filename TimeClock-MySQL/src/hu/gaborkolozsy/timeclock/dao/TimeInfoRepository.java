@@ -2,11 +2,11 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 import java.sql.SQLException;
-import timeclock.job.Job;
-import timeclock.query.TimeInfo;
+import hu.gaborkolozsy.timeclock.model.Job;
+import hu.gaborkolozsy.timeclock.model.TimeInfo;
 
 /**
  * The <strong>TimeInfoRepository</strong> interface extends the 
@@ -28,8 +28,8 @@ import timeclock.query.TimeInfo;
  * @version 2.1
  * @param <T> an {@code Object} as a returning type
  * @param <E> an {@code Object} for information searching
- * @see timeclock.interfaces.Info
- * @see timeclock.query.TimeInfo
+ * @see hu.gaborkolozsy.timeclock.daos.Info
+ * @see hu.gaborkolozsy.timeclock.model.TimeInfo
  * @see timeclock.dao.TimeInfoRepositoryJDBCImpl
  * @see java.sql.SQLException
  */
@@ -42,8 +42,8 @@ public interface TimeInfoRepository<T,E> extends Info<T,E> {
      * @param e to identification the correct {@code Object}
      * @return a new {@code Object}
      * @throws SQLException 
-     * @see timeclock.job.Job
-     * @see timeclock.query.TimeInfo
+     * @see hu.gaborkolozsy.timeclock.model.Job
+     * @see hu.gaborkolozsy.timeclock.model.TimeInfo
      * @see timeclock.dao.TimeInfoRepositoryJDBCImpl
      */
     @Override
@@ -57,8 +57,8 @@ public interface TimeInfoRepository<T,E> extends Info<T,E> {
      * @param status to identification the correct {@code Job}
      * @return a new {@code TimeInfo} object
      * @throws SQLException 
-     * @see timeclock.job.Job
-     * @see timeclock.query.TimeInfo
+     * @see hu.gaborkolozsy.timeclock.model.Job
+     * @see hu.gaborkolozsy.timeclock.model.TimeInfo
      * @see timeclock.dao.TimeInfoRepositoryJDBCImpl
      * @deprecated <strong>not use this method</strong>
      */

@@ -2,7 +2,7 @@
  * Copyright (c) 2016, Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.config;
+package hu.gaborkolozsy.timeclock.config;
 
 import java.io.File;
 import java.io.FileInputStream;

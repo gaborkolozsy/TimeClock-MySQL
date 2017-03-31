@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.interfaces;
+package hu.gaborkolozsy.timeclock.daos;
 
 import java.sql.SQLException;
 
@@ -17,7 +17,7 @@ import java.sql.SQLException;
  * @author Kolozsy Gábor
  * @version 2.0
  * @param <E>
- * @see timeclock.interfaces.Repository
+ * @see hu.gaborkolozsy.timeclock.daos.Repository
  * @see timeclock.dao.PayRepositoryJDBCImpl
  * @see java.sql.SQLException
  */
@@ -32,7 +32,7 @@ public interface PayRepository<E> extends Repository<E> {
      * 
      * @return maximum <code>Pay_id</code> from <code>Pay</code> table
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.PayRepositoryJDBCImpl
      */
     @Override
@@ -45,7 +45,7 @@ public interface PayRepository<E> extends Repository<E> {
      * @param e any object for insert to database
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.PayRepositoryJDBCImpl
      */
     @Override
@@ -56,7 +56,7 @@ public interface PayRepository<E> extends Repository<E> {
      * in the MySQLdatabase.
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.PayRepositoryJDBCImpl
      */
     @Override
@@ -70,7 +70,7 @@ public interface PayRepository<E> extends Repository<E> {
      * will correct again.
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.PayRepositoryJDBCImpl
      */
     @Override
@@ -81,7 +81,7 @@ public interface PayRepository<E> extends Repository<E> {
      * and database <code>Connection</code> too.
      * 
      * @throws SQLException 
-     * @see timeclock.interfaces.Repository
+     * @see hu.gaborkolozsy.timeclock.daos.Repository
      * @see timeclock.dao.PayRepositoryJDBCImpl
      */
     @Override

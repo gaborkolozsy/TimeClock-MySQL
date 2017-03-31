@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package timeclock.dao;
+package hu.gaborkolozsy.timeclock.dao.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,12 +13,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import timeclock.exception.TimeClockException;
-import timeclock.interfaces.UserRepository;
-import timeclock.user.User;
+import hu.gaborkolozsy.timeclock.TimeClockException;
+import hu.gaborkolozsy.timeclock.daos.UserRepository;
+import hu.gaborkolozsy.timeclock.model.User;
 
 /**
- * This object implementing the {@link timeclock.interfaces.UserRepository}
+ * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.UserRepository}
  * interface. 
  * <p>
  * It manages the relationship between the {@code Usre} object
@@ -26,8 +26,8 @@ import timeclock.user.User;
  * 
  * @author Kolozsy Gábor
  * @version 1.0
- * @see timeclock.user.User
- * @see timeclock.interfaces.UserRepository
+ * @see hu.gaborkolozsy.timeclock.model.User
+ * @see hu.gaborkolozsy.timeclock.daos.UserRepository
  * @see java.io.File
  * @see java.io.FileInputStream
  * @see java.io.FileOutputStream
@@ -37,7 +37,7 @@ import timeclock.user.User;
  * @see java.util.ArrayList
  * @see java.io.IOException
  * @see java.io.FileNotFoundException
- * @see timeclock.exception.TimeClockException
+ * @see hu.gaborkolozsy.timeclock.TimeClockException
  */
 public class UserRepositoryBINImpl implements UserRepository {
     
@@ -53,13 +53,13 @@ public class UserRepositoryBINImpl implements UserRepository {
     private boolean validID = true;
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.UserRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.UserRepository}.
      * @param userName for find
      * @return a new {@code User} object
      * @throws TimeClockException 
-     * @see timeclock.user.User
-     * @see timeclock.interfaces.UserRepository
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     @Override
     public User findByUserName(String userName) throws TimeClockException {
@@ -72,13 +72,13 @@ public class UserRepositoryBINImpl implements UserRepository {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.UserRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.UserRepository}.
      * @param id for identification the correct user
      * @return a new {@code User} object
      * @throws TimeClockException 
-     * @see timeclock.user.User
-     * @see timeclock.interfaces.UserRepository
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     @Override
     public User findById(int id) throws TimeClockException {
@@ -91,14 +91,14 @@ public class UserRepositoryBINImpl implements UserRepository {
     }
     
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.UserRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.UserRepository}.
      * @param id for identification the correct user
      * @return {@code true}if the id is valid
      * @throws TimeClockException
      * @throws FileNotFoundException 
-     * @see timeclock.user.User
-     * @see timeclock.interfaces.UserRepository
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     @Override
     public boolean findId(int id) throws TimeClockException, FileNotFoundException {
@@ -111,12 +111,12 @@ public class UserRepositoryBINImpl implements UserRepository {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.UserRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.UserRepository}.
      * @param user for saveing
      * @throws TimeClockException 
-     * @see timeclock.user.User
-     * @see timeclock.interfaces.UserRepository
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     @Override
     public void save(User user) throws TimeClockException {
@@ -139,12 +139,12 @@ public class UserRepositoryBINImpl implements UserRepository {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.UserRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.UserRepository}.
      * @param id for identification the correct user
      * @throws TimeClockException
-     * @see timeclock.user.User
-     * @see timeclock.interfaces.UserRepository
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      * @deprecated
      */
     @Deprecated
@@ -171,12 +171,12 @@ public class UserRepositoryBINImpl implements UserRepository {
     }
 
     /**
-     * <strong>See >>></strong> {@link timeclock.interfaces.UserRepository}.
+     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.UserRepository}.
      * @param user for updateing
      * @throws TimeClockException 
-     * @see timeclock.user.User
-     * @see timeclock.interfaces.UserRepository
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.daos.UserRepository
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     @Override
     public void update(User user) throws TimeClockException {
@@ -196,8 +196,8 @@ public class UserRepositoryBINImpl implements UserRepository {
      * Returns a {@code List} of users for some method.
      * @return a {@code List} of users
      * @throws TimeClockException 
-     * @see timeclock.user.User
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     private List<User> inputStreamList() throws TimeClockException {
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
@@ -211,8 +211,8 @@ public class UserRepositoryBINImpl implements UserRepository {
      * Users write to file.
      * @param list for write to file
      * @throws TimeClockException 
-     * @see timeclock.user.User
-     * @see timeclock.exception.TimeClockException
+     * @see hu.gaborkolozsy.timeclock.model.User
+     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     private void writeToFile(List<User> list) throws TimeClockException {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(fileName))) {
