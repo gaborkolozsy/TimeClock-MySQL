@@ -2,53 +2,38 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package hu.gaborkolozsy.timeclock.dao;
+package hu.gaborkolozsy.timeclock.dao.deprecated;
 
+import hu.gaborkolozsy.timeclock.dao.InfoDAO;
 import hu.gaborkolozsy.timeclock.model.Job;
 import hu.gaborkolozsy.timeclock.model.PayInfo;
 import java.sql.SQLException;
 
 /**
- * The <strong>PayInfoRepository</strong> interface extends the 
- * {@code Info<T,E>} interface. 
+ * This interface provide a few deprecated methods. Please don't used these.
+ * The @code InfoDAO} interface's {@code getInfo()} generic method is a 
+ * better and simpler alternative.
+ * 
  * <p>
- * The <strong>PayInfoRepository</strong> interface provide a method 
- * for getting information from database about any <strong>E</strong> 
- * {@code Object} with any returning <strong>T</strong> {@code Object} type.
- * <p>
- * The <strong>PayInfoRepository</strong> interface provide a method 
- * for closing all opened connection.
+ * The {@code PayInfoRepository} interface extends the 
+ * {@code InfoDAO<T, E>} interface. 
+ * 
  * <p>
  * This interface will ensure the correct connection with the MySQL database.
- * <p>
- * This interface provide a few deprecated methods. Please not used these.
- * The generic implemented method is a better alternative.
  * 
- * @author Kolozsy Gábor
- * @version 2.1
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
  * @param <T> an {@code Object} as a returning type
  * @param <E> an {@code Object} for information searching
- * @see hu.gaborkolozsy.timeclock.daos.Info
- * @see hu.gaborkolozsy.timeclock.model.PayInfo
- * @see timeclock.dao.PayInfoRepositoryJDBCImpl
- * @see java.sql.SQLException
+ * @see Job
+ * @see PayInfo
+ * @see SQLException
+ * @deprecated <strong>Please use simple the {@code InfoDAO} interface 
+ * instead of this.</strong>
  */
-public interface PayInfoRepository<T,E> extends Info<T,E> {
+@Deprecated
+public interface PayInfoRepository<T, E> extends InfoDAO<T, E> {
  
-    /**
-     * Make a {@code Object} for displayed the data 
-     * members on the specified tab in the program window.
-     * 
-     * @param e to identification the correct {@code Object}
-     * @return a new {@code Object}
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.model.Job
-     * @see hu.gaborkolozsy.timeclock.model.PayInfo
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     */
-    @Override
-    T getInfo(E e) throws SQLException;
-    
     /**
      * Make a <code>PayInfo</code> object for displayed the data 
      * members on the <code>Pay</code> tab in the program window.
@@ -57,10 +42,9 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * @param status to identification the correct {@code Job} 
      * @return a new {@code PayInfo} object
      * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.model.Job
-     * @see hu.gaborkolozsy.timeclock.model.PayInfo
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     * @deprecated <strong>not use this method</strong>
+     * @see Job
+     * @see PayInfo
+     * @deprecated <strong>Don't use this method!</strong>
      */
     @Deprecated
     PayInfo makePayInfo(Job job, String status) throws SQLException;
@@ -80,9 +64,8 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * @return the {@code hourlyPay} data member for {@code PayInfo} 
      * object
      * @throws SQLException
-     * @see hu.gaborkolozsy.timeclock.model.Job
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     * @deprecated <strong>not use this method</strong>
+     * @see Job
+     * @deprecated <strong>Don't use this method!</strong>
      */
     @Deprecated
     int getHourlyPay(Job job) throws SQLException;
@@ -97,9 +80,8 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * @param project name of specified <code>Project</code>
      * @return the {@code averageHourlyPay} data member for 
      * {@code PayInfo} object
-     * @throws SQLException 
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method!</strong>
      */
     @Deprecated
     int getAverageHourlyPay(String project) throws SQLException;
@@ -120,9 +102,8 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * <code>Project</code> from database
      * @return the {@code totalPayment} data member for {@code PayInfo} 
      * object
-     * @throws SQLException 
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method!</strong>
      */
     @Deprecated
     int getTotalPayment(String project, String status) throws SQLException;
@@ -135,20 +116,10 @@ public interface PayInfoRepository<T,E> extends Info<T,E> {
      * from the database
      * @return the <code>Job_id</code> from the database as integer value
      * @throws SQLException
-     * @see hu.gaborkolozsy.timeclock.model.Job
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     * @deprecated <strong>not use this method</strong>
+     * @see Job
+     * @deprecated <strong>Don't use this method!</strong>
      */
     @Deprecated
     int getJobId(Job job) throws SQLException;
     
-    /**
-     * Before program quit close all opened <code>PreparedStatement</code>
-     * and database <code>Connection</code> too.
-     * 
-     * @throws SQLException 
-     * @see timeclock.dao.PayInfoRepositoryJDBCImpl
-     */
-    @Override
-    void close() throws SQLException;
 }

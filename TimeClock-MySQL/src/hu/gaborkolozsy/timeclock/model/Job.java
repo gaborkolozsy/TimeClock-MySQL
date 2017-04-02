@@ -11,11 +11,8 @@ import java.time.LocalDateTime;
  * and use this by calculating the {@code Hourly_pay}, {@code averageHourlyPay} 
  * and {@code totalPay}.
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see timeclock.interfaces.Repository
- * @see timeclock.interfaces.JobRepository
- * @see timeclock.dao.JobRepositoryJDBCImpl
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
  * @see java.time.LocalDateTime
  */
 public class Job {
@@ -82,6 +79,7 @@ public class Job {
     
     /**
      * Set the new {@code Job} object by start.
+     * 
      * @param branch on the Git
      * @param project name of project
      * @param packag package of job
@@ -104,6 +102,7 @@ public class Job {
     
     /**
      * Set the new {@code Job} object by new start.
+     * 
      * @param project name of project
      * @param packag package of job
      * @param clazz class name of job
@@ -120,6 +119,7 @@ public class Job {
 
     /**
      * Set the new {@code Job} object by end.
+     * 
      * @param project name of project
      * @param packag package of job
      * @param clazz class name of job
@@ -138,6 +138,7 @@ public class Job {
     
     /**
      * Set the new {@code Job} object for identification the correct job.
+     * 
      * @param project name of project
      * @param packag package of job
      * @param clazz class name of job

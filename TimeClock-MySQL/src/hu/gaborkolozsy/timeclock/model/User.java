@@ -7,16 +7,15 @@ package hu.gaborkolozsy.timeclock.model;
 import java.io.Serializable;
 
 /**
- * This object declared all datamembers for user. Implements 
- * {@code Serializable}.
+ * This object declared all datamembers for user.
  * 
- * @author Kolozsy Gábor
- * @see java.io.Serializable
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
  */
 public class User implements Serializable {
     
     /**
-     * an id for identification an user
+     * An id for identification an user.
      * 
      * @see #getId() 
      * @see #setId(int) 
@@ -36,6 +35,7 @@ public class User implements Serializable {
     private String password;
     
     /**
+     * Set the {@code User} object.
      * 
      * @param id identification an user
      * @param userName a possible username
@@ -94,4 +94,5 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+    
 }

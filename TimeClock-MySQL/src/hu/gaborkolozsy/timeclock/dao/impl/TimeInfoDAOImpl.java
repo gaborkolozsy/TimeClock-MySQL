@@ -4,7 +4,7 @@
  */
 package hu.gaborkolozsy.timeclock.dao.impl;
 
-import hu.gaborkolozsy.timeclock.dao.TimeInfoRepository;
+import hu.gaborkolozsy.timeclock.dao.InfoDAO;
 import hu.gaborkolozsy.timeclock.model.Job;
 import hu.gaborkolozsy.timeclock.model.TimeInfo;
 import java.sql.Connection;
@@ -13,69 +13,59 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}
- * generic interface. 
+ * This object implementing the {@code InfoDAO generic interface. 
  * <p>
  * It manages the relationship between the {@code TimeInfo} 
  * object and the MySQL database.
  * <p>
- * This class provide a few deprecated methods. Please not used these.
- * Has a better alternative.
+ * This class provide a few deprecated methods. Please use {@code getInfo()}
+ * method instead of these.
  * 
- * @author Kolozsy Gábor
- * @version 2.1
- * @see hu.gaborkolozsy.timeclock.model.TimeInfo
- * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
- * @see java.sql.Connection
- * @see java.sql.PreparedStatement
- * @see java.sql.ResultSet
- * @see java.sql.SQLException
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
+ * @see Connection
+ * @see PreparedStatement
+ * @see ResultSet
+ * @see SQLException
  */
-public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,Job> {
+public class TimeInfoDAOImpl implements InfoDAO<TimeInfo, Job> {
     
     /**
-     * MySQL database connection
-     */
-    private final Connection connection;
-    
-    /**
-     * a {@code PreparedStatement} for a new {@code PayInfo} object
+     * A {@code PreparedStatement} for a new {@code PayInfo} object.
      */
     private final PreparedStatement getAllInfo;
     
     /**
-     * a {@code PreparedStatement} for {@code toTime} datamember of
+     * A {@code PreparedStatement} for {@code toTime} datamember of
      * {@code TimeInfo} object from the {@code Job} table
-     * of {@code TimeClock} schema
+     * of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getTime;
     
     /**
-     * a {@code PreparedStatement} for {@code averageTime} datamember of
+     * A {@code PreparedStatement} for {@code averageTime} datamember of
      * {@code TimeInfo} object from the {@code Job} table
-     * of {@code TimeClock} schema
+     * of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getAverageTime;
     
     /**
-     * a {@code PreparedStatement} for {@code totalTime} datamember of
+     * A {@code PreparedStatement} for {@code totalTime} datamember of
      * {@code TimeInfo} object from the {@code Job} table
-     * of {@code TimeClock} schema
+     * of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getTotalTime;
     
     /**
-     * Set the {@code TimeInfoRepositoryJDBCImpl} object for connection
-     * to MySQL database
+     * Set the {@code TimeInfoAOImpl} object for connection to MySQL database.
      * 
      * @param connection MySQL database connection
      * @throws SQLException 
      */
-    public TimeInfoRepositoryJDBCImpl(Connection connection) throws SQLException {
-        this.connection = connection;
+    public TimeInfoDAOImpl(Connection connection) throws SQLException {
         this.getAllInfo = connection.prepareStatement("SELECT \n" +
                                                       "(SELECT CAST(To_time AS CHAR) FROM Job WHERE Project = ? and Package = ? and Class = ? and Job_number = ?) AS To_time,\n" +
                                                       "(SELECT CONVERT(SEC_TO_TIME(ROUND(SUM(TIME_TO_SEC(To_time))/COUNT(To_time))),CHAR) FROM Job WHERE Project = ?) AS averageTime,\n" +
@@ -88,13 +78,11 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
+     * Returns a {@code TimeInfo} for display it.
      * 
      * @param e for identification the correct {@code Job}
-     * 
      * @return a new {@code TimeInfo} object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
+     * @throws SQLException
      */
     @Override
     public TimeInfo getInfo(Job e) throws SQLException {
@@ -115,18 +103,17 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
+     * Make a {@code TimeInfo} object for displayed the data 
+     * members on the {@code Time} tab in the program window.
      * 
      * @param job for identification the correct {@code Job}
      * @param status for identification the correct {@code Job}
-     * 
      * @return a new {@code TimeInfo} object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public TimeInfo makeTimeInfo(Job job, String status) throws SQLException {
         TimeInfo ret = new TimeInfo();
         ret.setToTime(getToTime(job));
@@ -136,18 +123,17 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
+     * Get the {@code toTime} data member of {@code TimeInfo}
+     * object by the specified job if done it.
      * 
      * @param job for identification the correct {@code Job}
-     * 
      * @return value of {@code To_time} column as a {@code String} from 
      * {@code Job} table of {@code TimeClock} schema
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public String getToTime(Job job) throws SQLException {
         this.getTime.setString(1, job.getProject());
         this.getTime.setString(2, job.getPackage());
@@ -161,18 +147,17 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
+     * Get the {@code averageTime} data member of {@code TimeInfo}
+     * object by the selected {@code Project} if done it.
      * 
      * @param Project for selected the correct {@code Job}
-     * 
      * @return value of {@code averageTime} as a {@code String} from 
      * {@code Job} table of {@code TimeClock} schema
      * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public String getAverageTime(String Project) throws SQLException {
         this.getAverageTime.setString(1, Project);
         ResultSet rs = getAverageTime.executeQuery();
@@ -183,18 +168,18 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
+     * Get the {@code totalTime} data member of {@code TimeInfo}
+     * object by the selected {@code Project} if done it.
      * 
      * @param Project for selected the correct {@code Job}
-     * 
+     * @param status the job status
      * @return value of {@code averageTime} as a {@code String} from 
      * {@code Job} table of {@code TimeClock} schema
      * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public String getTotalTime(String Project, String status) throws SQLException {
         this.getTotalTime.setString(1, Project);
         this.getTotalTime.setString(2, status);
@@ -206,14 +191,13 @@ public class TimeInfoRepositoryJDBCImpl implements TimeInfoRepository<TimeInfo,J
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.TimeInfoRepository}.
+     * Before program quit close all opened {@code PreparedStatement}.
      * 
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.TimeInfoRepository
+     * @throws SQLException
      */
     @Override
     public void close() throws SQLException {
-        this.connection.close();
+        this.getAllInfo.close();
         this.getTime.close();
         this.getAverageTime.close();
         this.getTotalTime.close();

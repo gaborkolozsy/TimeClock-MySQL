@@ -4,7 +4,7 @@
  */
 package hu.gaborkolozsy.timeclock.dao.impl;
 
-import hu.gaborkolozsy.timeclock.dao.PayInfoRepository;
+import hu.gaborkolozsy.timeclock.dao.InfoDAO;
 import hu.gaborkolozsy.timeclock.model.Job;
 import hu.gaborkolozsy.timeclock.model.PayInfo;
 import java.sql.Connection;
@@ -13,77 +13,68 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}
- * generic interface. 
+ * This object implementing the {@code InfoDAO} generic interface.
+ * 
  * <p>
  * It manages the relationship between the {@code PayInfo} 
  * object and the MySQL database.
- * <p>
- * This class provide a few deprecated methods. Please not used these.
- * Has a better alternative.
  * 
- * @author Kolozsy Gábor
- * @version 2.1
- * @see hu.gaborkolozsy.timeclock.model.Job
- * @see hu.gaborkolozsy.timeclock.model.PayInfo
- * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
- * @see java.sql.Connection
- * @see java.sql.PreparedStatement
- * @see java.sql.ResultSet
- * @see java.sql.SQLException
+ * <p>
+ * This class provide a few deprecated methods. Please use {@code getInfo()}
+ * method instead of these.
+ * 
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
+ * @see Connection
+ * @see PreparedStatement
+ * @see ResultSet
+ * @see SQLException
  */
-public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job> {
+public class PayInfoDAOImpl implements InfoDAO<PayInfo, Job> {
     
     /**
-     * MySQL database connection
-     */
-    private final Connection connection;
-    
-    /**
-     * a {@code PreparedStatement} for a new {@code PayInfo} object
+     * A {@code PreparedStatement} for a new {@code PayInfo} object.
      */
     private final PreparedStatement getAllInfo;
     
     /**
-     * a {@code PreparedStatement} for {@code hourlyPay} datamember of
+     * A {@code PreparedStatement} for {@code hourlyPay} datamember of
      * {@code PayInfo} object from the {@code Pay} and {@code Job} tables 
-     * of {@code TimeClock} schema
+     * of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getHourlyPay;
     
     /**
-     * a {@code PreparedStatement} for {@code averageHourlyPay} datamember of
+     * A {@code PreparedStatement} for {@code averageHourlyPay} datamember of
      * {@code PayInfo} object from the {@code Pay} and {@code Job} tables 
-     * of {@code TimeClock} schema
+     * of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getAverageHourlyPay;
     
     /**
-     * a {@code PreparedStatement} for {@code totalPayment} datamember of
+     * A {@code PreparedStatement} for {@code totalPayment} datamember of
      * {@code PayInfo} object from the {@code Pay} and {@code Job} tables 
-     * of {@code TimeClock} schema
+     * of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getTotalPayment;
     
     /**
-     * a {@code PreparedStatement} for get {@code JobId} from the 
-     * {@code Pay} and {@code Job} tables of {@code TimeClock} schema
+     * A {@code PreparedStatement} for get {@code JobId} from the 
+     * {@code Pay} and {@code Job} tables of {@code TimeClock} schema.
      */
     @Deprecated
     private final PreparedStatement getJobId;
     
     /**
-     * Set the {@code PayInfoRepositoryJDBCImpl} object for connection
-     * to MySQL database
+     * Set the {@code PayInfoDAOImpl} object for connection to MySQL database.
      * 
      * @param connection the MySQL database connection
      * @throws SQLException 
      */
-    public PayInfoRepositoryJDBCImpl(Connection connection) throws SQLException {
-        this.connection = connection;
+    public PayInfoDAOImpl(Connection connection) throws SQLException {
         this.getAllInfo = connection.prepareStatement(
                 "SELECT DISTINCT\n" +
                 "(SELECT ROUND(Pay/(TIME_TO_SEC(To_time)/3600)) FROM Pay INNER JOIN Job ON Pay_id = Job_id WHERE Project = ? and Package = ? and Class = ? and Job_number = ?) AS hourlyPay,\n" +
@@ -98,13 +89,11 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Returns a {@code PayInfo} for display it.
      * 
      * @param e for identification the correct {@code Job}
-     * 
      * @return a new {@code PayInfo} object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
+     * @throws SQLException
      */
     @Override
     public PayInfo getInfo(Job e) throws SQLException {
@@ -125,18 +114,17 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Make a <code>PayInfo</code> object for display the data 
+     * members on the <code>Pay</code> tab in the program window.
      * 
      * @param job for identification the correct {@code Job}
      * @param status for identification the correct {@code Job}
-     * 
      * @return a new {@code PayInfo} object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public PayInfo makePayInfo(Job job, String status) throws SQLException {
         PayInfo ret = new PayInfo();
         ret.setHourlyPay(getHourlyPay(job));
@@ -146,17 +134,22 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Get the <code>hourlyPay</code> data member of {@code PayInfo}
+     * object by the specified job if done it. 
+     * <p>
+     * Query the <code>Job_id</code> from database with 
+     * {@link getJobId(Job job)} method.
+     * <p>
+     * This value as {@code String} displayed on the <code>Pay</code> tab 
+     * in the program window.
      * 
      * @param job for identification the correct {@code Job}
-     * 
      * @return {@code hourlyPay} data member of {@code PayInfo} object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public int getHourlyPay(Job job) throws SQLException {
         this.getHourlyPay.setInt(1, getJobId(job));
         ResultSet rs = getHourlyPay.executeQuery();
@@ -167,18 +160,20 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Get the <code>averageHourlyPay</code> data member of 
+     * {@code PayInfo} object by the specified project. 
+     * <p>
+     * This value as {@code String} displayed on the <code>Pay</code> tab 
+     * in the program window.
      * 
      * @param project for selected the correct {@code Job}
-     * 
      * @return {@code averageHourlyPay} data member of {@code PayInfo} 
      * object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public int getAverageHourlyPay(String project) throws SQLException {
         this.getAverageHourlyPay.setString(1, project);
         ResultSet rs = getAverageHourlyPay.executeQuery();
@@ -189,18 +184,24 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Get the <code>totalPayment</code> data member of {@code PayInfo} 
+     * object by the specified project.
+     * <p>
+     * Selected job by this {@code status} and specified {@code Project}
+     * in the database. If {@code status} <code>Done</code> is, 
+     * then calculate with it.
+     * <p>
+     * This value as {@code String} displayed on the <code>Pay</code> tab 
+     * in the program window.
      * 
      * @param project for selected the correct {@code Job}
      * @param status for selected the correct {@code Job}
-     * 
      * @return {@code totalPayment} data member of {@code PayInfo} object
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public int getTotalPayment(String project, String status) throws SQLException {
         this.getTotalPayment.setString(1, project);
         this.getTotalPayment.setString(2, status);
@@ -212,17 +213,16 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Returns the {@code Job_id} by specified <code>Job</code> object
+     * from database.
      * 
      * @param job for identification the correct {@code Job}
-     * 
      * @return the {@code Job_id} for identification the correct {@code Job}
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
-     * @deprecated <strong>not use this method</strong>
+     * @throws SQLException
+     * @deprecated <strong>Don't use this method. Please use {@code getInfo()}
+     * method instead of this.</strong>
      */
     @Deprecated
-    @Override
     public int getJobId(Job job) throws SQLException {
         this.getJobId.setString(1, job.getProject());
         this.getJobId.setString(2, job.getPackage());
@@ -236,14 +236,13 @@ public class PayInfoRepositoryJDBCImpl implements PayInfoRepository<PayInfo,Job>
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayInfoRepository}.
+     * Before program quit close all opened {@code PreparedStatement}.
      * 
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayInfoRepository
+     * @throws SQLException
      */
     @Override
     public void close() throws SQLException {
-        this.connection.close();
+        this.getAllInfo.close();
         this.getHourlyPay.close();
         this.getAverageHourlyPay.close();
         this.getTotalPayment.close();

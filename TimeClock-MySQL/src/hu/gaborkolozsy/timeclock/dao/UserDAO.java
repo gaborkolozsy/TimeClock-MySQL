@@ -9,18 +9,17 @@ import hu.gaborkolozsy.timeclock.model.User;
 import java.io.FileNotFoundException;
 
 /**
- * The <strong>UserRepository</strong> interface provide some method 
- * for save/update the {@code User} object to a .bin file.
+ * The {@code UserDAO} interface provide some method 
+ * for save/update the {@code User} object to the {@code data.bin} file.
  * This will ensure the correct connection.
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see hu.gaborkolozsy.timeclock.model.User
- * @see timeclock.dao.UserRepositoryBINImpl
- * @see java.io.FileNotFoundException
- * @see hu.gaborkolozsy.timeclock.TimeClockException
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
+ * @see TimeClockException
+ * @see User
+ * @see FileNotFoundException
  */
-public interface UserRepository {
+public interface UserDAO {
     
     /**
      * Return a {@code User} object by the specified user name.
@@ -29,10 +28,6 @@ public interface UserRepository {
      * @return a {@code User} object
      * @throws TimeClockException
      * @throws FileNotFoundException 
-     * @see hu.gaborkolozsy.timeclock.model.User
-     * @see timeclock.dao.UserRepositoryBINImpl
-     * @see java.io.FileNotFoundException
-     * @see hu.gaborkolozsy.timeclock.TimeClockException
      */
     User findByUserName(String userName) throws TimeClockException, FileNotFoundException;
     
@@ -42,11 +37,7 @@ public interface UserRepository {
      * @param id for identification the user
      * @return a {@code User} object
      * @throws TimeClockException
-     * @throws FileNotFoundException 
-     * @see hu.gaborkolozsy.timeclock.model.User
-     * @see timeclock.dao.UserRepositoryBINImpl
-     * @see java.io.FileNotFoundException
-     * @see hu.gaborkolozsy.timeclock.TimeClockException
+     * @throws FileNotFoundException
      */
     User findById(int id) throws TimeClockException, FileNotFoundException;
     
@@ -56,10 +47,7 @@ public interface UserRepository {
      * @param id for searching
      * @return {@code true} if id is valid
      * @throws TimeClockException
-     * @throws FileNotFoundException 
-     * @see timeclock.dao.UserRepositoryBINImpl
-     * @see java.io.FileNotFoundException
-     * @see hu.gaborkolozsy.timeclock.TimeClockException
+     * @throws FileNotFoundException
      */
     boolean findId(int id) throws TimeClockException, FileNotFoundException;
     
@@ -68,11 +56,7 @@ public interface UserRepository {
      * 
      * @param user for saveing
      * @throws TimeClockException
-     * @throws FileNotFoundException 
-     * @see hu.gaborkolozsy.timeclock.model.User
-     * @see timeclock.dao.UserRepositoryBINImpl
-     * @see java.io.FileNotFoundException
-     * @see hu.gaborkolozsy.timeclock.TimeClockException
+     * @throws FileNotFoundException
      */
     void save(User user) throws TimeClockException, FileNotFoundException;
     
@@ -82,10 +66,7 @@ public interface UserRepository {
      * @param id for identification
      * @throws TimeClockException
      * @throws FileNotFoundException
-     * @see timeclock.dao.UserRepositoryBINImpl
-     * @see java.io.FileNotFoundException
-     * @see hu.gaborkolozsy.timeclock.TimeClockException
-     * @deprecated <strong>not use this method</strong>
+     * @deprecated <strong>Don't use this method!</strong>
      */
     @Deprecated
     void delete(int id) throws TimeClockException, FileNotFoundException;
@@ -93,13 +74,10 @@ public interface UserRepository {
     /**
      * Update the {@code User} data with the specified {@code User}.
      * 
-     * @param user for updateing
+     * @param user for updating
      * @throws TimeClockException
-     * @throws FileNotFoundException 
-     * @see hu.gaborkolozsy.timeclock.model.User
-     * @see timeclock.dao.UserRepositoryBINImpl
-     * @see java.io.FileNotFoundException
-     * @see hu.gaborkolozsy.timeclock.TimeClockException
+     * @throws FileNotFoundException
      */
     void update(User user) throws TimeClockException, FileNotFoundException;
+    
 }

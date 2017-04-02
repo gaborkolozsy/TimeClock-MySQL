@@ -7,10 +7,8 @@ package hu.gaborkolozsy.timeclock.model;
 /**
  * This object declared all data members for time calculating.
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see timeclock.interfaces.TimeInfoRepository
- * @see timeclock.dao.TimeInfoRepositoryJDBCImpl
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
  */
 public class TimeInfo {
     
@@ -33,7 +31,7 @@ public class TimeInfo {
     private String totalTime;
 
     /**
-     * an empty construstor for {@code TimeInfoRepositoryJDBCImpl} object
+     * An empty construstor for {@code TimeInfoDAOImpl} object.
      */
     public TimeInfo() {}
     
@@ -52,7 +50,6 @@ public class TimeInfo {
 
     /**
      * Get the {@code toTime} by the specified {@code Job}.
-     * 
      * @return {@code toTime} as a {@code String} value
      */
     public String getToTime() {
@@ -61,7 +58,6 @@ public class TimeInfo {
 
     /**
      * Set the {@code toTime} by the specified {@code Job}.
-     * 
      * @param toTime period by the specified {@code Job}
      */
     public void setToTime(String toTime) {
@@ -70,7 +66,6 @@ public class TimeInfo {
     
     /**
      * Get the {@code averageTime} by the specified {@code Project}.
-     * 
      * @return {@code averageTime} as a {@code String} value
      */
     public String getAverageTime() {
@@ -79,7 +74,6 @@ public class TimeInfo {
 
     /**
      * Set the {@code averageTime} by the specified {@code Project}.
-     * 
      * @param averageTime average period by the specified {@code Project}.
      */
     public void setAverageTime(String averageTime) {
@@ -88,7 +82,6 @@ public class TimeInfo {
 
     /**
      * Get the {@code totalTime} by the specified {@code Project}.
-     * 
      * @return {@code totalTime} as a {@code String} value
      */
     public String getTotalTime() {
@@ -97,7 +90,6 @@ public class TimeInfo {
 
     /**
      * Set the {@code totalTime} by the specified {@code Project}.
-     * 
      * @param totalTime total period by the specified {@code Project}
      */
     public void setTotalTime(String totalTime) {
