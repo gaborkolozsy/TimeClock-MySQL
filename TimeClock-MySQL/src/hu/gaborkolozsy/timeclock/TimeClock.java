@@ -5,16 +5,15 @@
 package hu.gaborkolozsy.timeclock;
 
 import hu.gaborkolozsy.timeclock.config.Config;
-import hu.gaborkolozsy.timeclock.dao.JobRepository;
-import hu.gaborkolozsy.timeclock.dao.PayInfoRepository;
-import hu.gaborkolozsy.timeclock.dao.PayRepository;
-import hu.gaborkolozsy.timeclock.dao.TimeInfoRepository;
-import hu.gaborkolozsy.timeclock.dao.UserRepository;
-import hu.gaborkolozsy.timeclock.dao.impl.JobRepositoryJDBCImpl;
-import hu.gaborkolozsy.timeclock.dao.impl.PayInfoRepositoryJDBCImpl;
-import hu.gaborkolozsy.timeclock.dao.impl.PayRepositoryJDBCImpl;
-import hu.gaborkolozsy.timeclock.dao.impl.TimeInfoRepositoryJDBCImpl;
-import hu.gaborkolozsy.timeclock.dao.impl.UserRepositoryBINImpl;
+import hu.gaborkolozsy.timeclock.dao.CommonDAO;
+import hu.gaborkolozsy.timeclock.dao.InfoDAO;
+import hu.gaborkolozsy.timeclock.dao.JobDAO;
+import hu.gaborkolozsy.timeclock.dao.UserDAO;
+import hu.gaborkolozsy.timeclock.dao.impl.JobDAOImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.PayCommonDAOImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.PayInfoDAOImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.TimeInfoDAOImpl;
+import hu.gaborkolozsy.timeclock.dao.impl.UserDAOImpl;
 import hu.gaborkolozsy.timeclock.model.Job;
 import hu.gaborkolozsy.timeclock.model.Pay;
 import hu.gaborkolozsy.timeclock.model.PayInfo;
@@ -40,72 +39,82 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
- * Calculates the working time and store this in MySQL database.
+ * Calculates the working hours and store this in MySQL database.
  * 
- * @author Kolozsy Gábor
- * @email kolozsygabor@gmail.com
- * @version 1.2.2
- * @see hu.gaborkolozsy.timeclock.model.Job
- * @see hu.gaborkolozsy.timeclock.daos.JobRepository
- * @see hu.gaborkolozsy.timeclock.dao.impl.JobRepositoryJDBCImpl
- * @see hu.gaborkolozsy.timeclock.model.Pay
- * @see hu.gaborkolozsy.timeclock.daos.PayRepository
- * @see hu.gaborkolozsy.timeclock.dao.impl.PayRepositoryJDBCImpl
- * @see hu.gaborkolozsy.timeclock.model.User
- * @see hu.gaborkolozsy.timeclock.daos.UserRepository
- * @see hu.gaborkolozsy.timeclock.dao.impl.UserRepositoryBINImpl
- * @see hu.gaborkolozsy.timeclock.config.Config
- * @see java.util.regex.Pattern
- * @see java.util.regex.Matcher
- * @see java.util.Date
- * @see java.time.LocalDateTime
- * @see java.time.Instant
- * @see java.time.ZoneId
- * @see java.time.ZoneOffset
- * @see java.sql.DriverManager
- * @see java.sql.Connection
- * @see java.awt.CardLayout
- * @see java.awt.Color
- * @see javax.swing.JOptionPane
- * @see java.io.File
- * @see java.io.IOException
- * @see java.sql.SQLException
- * @see java.io.FileNotFoundException
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @version 1.3.1-SNAPSHOT
+ * @see Config
+ * @see JobDAO
+ * @see PayDAO
+ * @see TimeInfoRepository
+ * @see UserDAO
+ * @see JobDAOImpl
+ * @see PayInfoDAOImpl
+ * @see PayCommonDAOImpl
+ * @see TimeInfoDAOImpl
+ * @see UserDAOImpl
+ * @see Job
+ * @see Pay
+ * @see PayInfo
+ * @see TimeInfo
+ * @see User
+ * @see CardLayout
+ * @see Color
+ * @see File
+ * @see FileNotFoundException
+ * @see IOException
+ * @see Connection
+ * @see DriverManager
+ * @see SQLException
+ * @see Instant
+ * @see LocalDateTime
+ * @see ZoneId
+ * @see ZoneOffset
+ * @see Date
+ * @see Level
+ * @see Logger
+ * @see Matcher
+ * @see Pattern
+ * @see JOptionPane
  */
 public class TimeClock extends javax.swing.JFrame {
 
-    private static Connection connection;
-    private static boolean open = false;
-    private static JobRepository jobRep;
-    private static String branch;
-    private static String project;
-    private static String sPackage;
-    private static String sClass;
-    private static int jobNumber;
-    private static final String DONE = "Done"; 
-    private static final String WIP = "WIP";
-    private static TimeInfoRepository timeInfoRep;
-    private static String hour;
-    private static String minute;
-    private static String second;
-    private static PayRepository payRep;
-    private static PayInfoRepository payInfoRep;
-    private static UserRepository userRep;
     private static final String USERFILE = "user.bin";
     private static final Config config = new Config();
+    private static Connection connection;
+    private static boolean open = false;
+    
+    private static UserDAO userRep;
+    private static JobDAO jobRep;
+    private static CommonDAO payRep;
+    private static InfoDAO infoRep;
+    
+    private static String sProject;
+    private static String sBranch;
+    private static String sPackage;
+    private static String sClass;
+    private static int jobNumber;    
+    
+    private static String hour;
+    private static String minute;
+    private static String second;    
+    
     private static final String STATUS = "Status";
     private static final String AUTOCONNECT = "AutoConnect";
     private static final String NUMBER = "Number";
     private static final String NEXTACTION = "NextAction";
     private static final String BPPC = "BPPC";
-    private static final String COMMENT = "Comment";
     private static final String PPC = "PPC";
+    private static final String COMMENT = "Comment";
+    private static final String DONE = "Done"; 
+    private static final String WIP = "WIP";    
+    
     private static Color myBlue;
     
     /**
      * Constructor.
      * 
-     * @throws java.io.IOException
+     * @throws IOException
      */
     // <editor-fold defaultstate="collapsed" desc="Constructor">
     public TimeClock() throws IOException {
@@ -1253,7 +1262,7 @@ public class TimeClock extends javax.swing.JFrame {
 
     /**
      * ADD.
-     * Add Branch,Projekt,Package,Class,Comment for combo boxies by tabs.
+     * Add Branch, Projekt, Package, Class and Comment for combo boxies by tabs.
      */
     // <editor-fold defaultstate="collapsed" desc="Add item for combo boxes">
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
@@ -1460,7 +1469,7 @@ public class TimeClock extends javax.swing.JFrame {
     private void databaseUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_databaseUsernameActionPerformed
         int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
         String username = databaseUsername.getText();
-        userRep = new UserRepositoryBINImpl();
+        userRep = new UserDAOImpl();
         try {
             if (userRep.findId(id)) {
                 User user = userRep.findByUserName(username);
@@ -1487,15 +1496,15 @@ public class TimeClock extends javax.swing.JFrame {
         }
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/TimeClock", username, password);
-            jobRep = new JobRepositoryJDBCImpl(connection);
-            payRep = new PayRepositoryJDBCImpl(connection);
+            jobRep = new JobDAOImpl(connection);
+            payRep = new PayCommonDAOImpl(connection);
             databaseConnectionButton.setSelected(true);
             databaseConnectionButton.setText("Connected");
             databaseConnectionButton.setForeground(Color.GREEN);
             open = true; // need by quit
 
             if (databaseRememberMeBox.isSelected()) {
-                userRep = new UserRepositoryBINImpl();
+                userRep = new UserDAOImpl();
                 int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
                 userRep.save(new User(id, username, password));
                 User user = userRep.findById(id);
@@ -1546,11 +1555,11 @@ public class TimeClock extends javax.swing.JFrame {
         int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
         try {
             if (new File(USERFILE).exists()) {
-                userRep = new UserRepositoryBINImpl();
+                userRep = new UserDAOImpl();
                 User user = userRep.findById(id);
                 connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/TimeClock", user.getUserName(), user.getPassword());
-                jobRep = new JobRepositoryJDBCImpl(connection);
-                payRep = new PayRepositoryJDBCImpl(connection);
+                jobRep = new JobDAOImpl(connection);
+                payRep = new PayCommonDAOImpl(connection);
                 databaseConnectionButton.setSelected(true);
                 databaseConnectionButton.setText("Connected");
                 databaseConnectionButton.setForeground(Color.GREEN);
@@ -1598,7 +1607,7 @@ public class TimeClock extends javax.swing.JFrame {
         int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
         try {
             if (new File(USERFILE).exists()) {
-                userRep = new UserRepositoryBINImpl();
+                userRep = new UserDAOImpl();
                 User user = userRep.findById(id);
                 if (user.getPassword().equals(JOptionPane.showInputDialog(rootPane, "Password?"))) {
                     CardLayout cl = (CardLayout) getContentPane().getLayout();
@@ -1637,7 +1646,7 @@ public class TimeClock extends javax.swing.JFrame {
         int id = Integer.parseInt(databaseUserId.getSelectedItem().toString());
         if (password.equals(cPassword)) {
             try {
-                userRep = new UserRepositoryBINImpl();
+                userRep = new UserDAOImpl();
                 userRep.update(new User(id, databaseUpadateNewUsername.getText(), password));
                 User user = userRep.findById(id);
                 if (user.getPassword().equals(password)) {
@@ -1678,20 +1687,20 @@ public class TimeClock extends javax.swing.JFrame {
         LocalDateTime startAt = LocalDateTime.ofEpochSecond(ldt.toEpochSecond(ZoneOffset.UTC), 0, ZoneOffset.UTC); // without millis
         String string = startBranchProjectPkgClassNo.getSelectedItem().toString();
         String[] str = string.split(",");
-        branch = str[0];
-        project = str[1];
+        sBranch = str[0];
+        sProject = str[1];
         sPackage = str[2];
         sClass = str[3];
         jobNumber = Integer.parseInt(str[4]);
-        Job job = new Job(project, sPackage, sClass, jobNumber);
-        Job updateJob = new Job(project, sPackage, sClass, jobNumber, startAt);
+        Job job = new Job(sProject, sPackage, sClass, jobNumber);
+        Job updateJob = new Job(sProject, sPackage, sClass, jobNumber, startAt);
         Pay pay = new Pay(Double.valueOf(startPaymentForThisJob.getText()), startCurrency.getSelectedItem().toString());
         try {
             if (!startDeleteLastBox.isSelected()) {
                 int developerId = jobRep.getDeveloperId(startDeveloper.getSelectedItem().toString());
                 if (developerId != 0) { // valid
                     if (jobRep.checkJobNumber(job)) { // not used
-                        jobRep.insert(new Job(branch, project, sPackage, sClass, jobNumber, startAt, startComment.getSelectedItem().toString(), developerId));
+                        jobRep.insert(new Job(sBranch, sProject, sPackage, sClass, jobNumber, startAt, startComment.getSelectedItem().toString(), developerId));
                         payRep.insert(pay);
                         afterStart(jobNumber);
                     } else {
@@ -1805,12 +1814,12 @@ public class TimeClock extends javax.swing.JFrame {
         LocalDateTime endAt = LocalDateTime.ofEpochSecond(ldt.toEpochSecond(ZoneOffset.UTC), 0, ZoneOffset.UTC); // without millis
         String string = endProjectPackageClass.getSelectedItem().toString();
         String[] str = string.split(",");
-        project = str[0];
+        sProject = str[0];
         sPackage = str[1];
         sClass = str[2];
         jobNumber = Integer.parseInt(endJobNumber.getSelectedItem().toString());
-        Job job = new Job(project, sPackage, sClass, jobNumber);
-        Job updateJob = new Job(project, sPackage, sClass, jobNumber, endAt, endStatus.getSelectedItem().toString());
+        Job job = new Job(sProject, sPackage, sClass, jobNumber);
+        Job updateJob = new Job(sProject, sPackage, sClass, jobNumber, endAt, endStatus.getSelectedItem().toString());
         try {
             if (!jobRep.checkJobNumber(job)) { // valid
                 if (jobRep.isStatusNull(job)) { // null
@@ -1889,16 +1898,16 @@ public class TimeClock extends javax.swing.JFrame {
     private void timeQueryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timeQueryButtonActionPerformed
         String string = timeProjectPackageClass.getSelectedItem().toString();
         String[] str = string.split(",");
-        project = str[0];
+        sProject = str[0];
         sPackage = str[1];
         sClass = str[2];
         jobNumber = Integer.parseInt(timeJobNumber.getSelectedItem().toString());
-        Job job = new Job(project, sPackage, sClass, jobNumber);
+        Job job = new Job(sProject, sPackage, sClass, jobNumber);
         try {
             if (!jobRep.checkJobNumber(job)) { // valid
                 if (jobRep.checkStatus(job).equals(DONE)) {
-                    timeInfoRep = new TimeInfoRepositoryJDBCImpl(connection);
-                    TimeInfo timeInfo = (TimeInfo) timeInfoRep.getInfo(job);
+                    infoRep = new TimeInfoDAOImpl(connection);
+                    TimeInfo timeInfo = (TimeInfo) infoRep.getInfo(job);
                     
                     String[] toTime = timeInfo.getToTime().split(":");
                     hour = toTime[0];
@@ -1984,16 +1993,16 @@ public class TimeClock extends javax.swing.JFrame {
     private void payQueryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payQueryButtonActionPerformed
         String string = payProjectPackageClass.getSelectedItem().toString();
         String[] str = string.split(",");
-        project = str[0];
+        sProject = str[0];
         sPackage = str[1];
         sClass = str[2];
         jobNumber = Integer.parseInt(payJobNumber.getSelectedItem().toString());
-        Job job = new Job(project, sPackage, sClass, jobNumber);
+        Job job = new Job(sProject, sPackage, sClass, jobNumber);
         try {
             if (!jobRep.checkJobNumber(job)) { // valid
                 if (jobRep.checkStatus(job).equals(DONE)) {
-                    payInfoRep = new PayInfoRepositoryJDBCImpl(connection);
-                    PayInfo payInfo = (PayInfo) payInfoRep.getInfo(job);
+                    infoRep = new PayInfoDAOImpl(connection);
+                    PayInfo payInfo = (PayInfo) infoRep.getInfo(job);
                     
                     payHourlyPayWas.setText(payInfo.getHourlyPay()+"");
                     payAverageHourlyPay.setText(payInfo.getAverageHourlyPay()+"");
@@ -2062,12 +2071,12 @@ public class TimeClock extends javax.swing.JFrame {
                 jobRep.close();
                 payRep.close();
                 
-                if (timeInfoRep != null) {
-                    timeInfoRep.close();
+                if (infoRep != null) {
+                    infoRep.close();
                 }
                 
-                if (payInfoRep != null) {
-                    payInfoRep.close();
+                if (infoRep != null) {
+                    infoRep.close();
                 }
             }
         } catch (SQLException ex) {

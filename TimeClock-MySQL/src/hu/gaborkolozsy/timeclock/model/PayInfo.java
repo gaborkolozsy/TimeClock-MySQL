@@ -7,10 +7,8 @@ package hu.gaborkolozsy.timeclock.model;
 /**
  * This object declared all data members for payment calculating.
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see timeclock.interfaces.PayInfoRepository
- * @see timeclock.dao.PayInfoRepositoryJDBCImpl
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
  */
 public class PayInfo {
     
@@ -33,7 +31,7 @@ public class PayInfo {
     private int totalPayment;
 
     /**
-     * an empty construstor for {@code PayInfoRepositoryJDBCImpl} object
+     * An empty construstor for {@code PayInfoDAOImpl} object.
      */
     public PayInfo() {}
     
@@ -53,7 +51,6 @@ public class PayInfo {
 
     /**
      * Get the {@code hourlyPay} by the specified {@code Job}.
-     * 
      * @return {@code hourlyPay} as an integer value
      */
     public int getHourlyPay() {
@@ -62,7 +59,6 @@ public class PayInfo {
 
     /**
      * Set the {@code hourlyPay} data member for the specified {@code Job}.
-     * 
      * @param hourlyPay hourly pay by the specified {@code Job}
      */
     public void setHourlyPay(int hourlyPay) {
@@ -71,7 +67,6 @@ public class PayInfo {
 
     /**
      * Get the {@code averageHourlyPay} by the specified {@code Project}.
-     * 
      * @return {@code averageHourlyPay} by the specified {@code Project}
      */
     public int getAverageHourlyPay() {
@@ -80,9 +75,7 @@ public class PayInfo {
 
     /**
      * Set the {@code averageHourlyPay} by the specified {@code Project}.
-     * 
-     * @param averageHourlyPay average hourly pay by the specified 
-     * {@code Project}
+     * @param averageHourlyPay average hourly pay by the specified {@code Project}
      */
     public void setAverageHourlyPay(int averageHourlyPay) {
         this.averageHourlyPay = averageHourlyPay;
@@ -90,7 +83,6 @@ public class PayInfo {
 
     /**
      * Get the {@code totalPayment} by the specified {@code Project}.
-     * 
      * @return {@code totalPayment} by the specified {@code Project}
      */
     public int getTotalPayment() {
@@ -99,7 +91,6 @@ public class PayInfo {
 
     /**
      * Set the {@code totalPayment} by the specified {@code Project}.
-     * 
      * @param totalPayment total payment by the specified {@code Project}
      */
     public void setTotalPayment(int totalPayment) {

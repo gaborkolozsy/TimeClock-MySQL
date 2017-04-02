@@ -4,7 +4,7 @@
  */
 package hu.gaborkolozsy.timeclock.dao.impl;
 
-import hu.gaborkolozsy.timeclock.dao.PayRepository;
+import hu.gaborkolozsy.timeclock.dao.CommonDAO;
 import hu.gaborkolozsy.timeclock.model.Pay;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,66 +12,57 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.PayRepository}
- * interface. 
+ * This object implementing the {@code PayDAO} interface. 
+ * 
  * <p>
  * It manages the relationship between the {@code Pay} object
  * and the MySQL database. 
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see hu.gaborkolozsy.timeclock.model.Pay
- * @see hu.gaborkolozsy.timeclock.daos.PayRepository
- * @see java.sql.Connection
- * @see java.sql.PreparedStatement
- * @see java.sql.ResultSet
- * @see java.sql.SQLException
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
+ * @see Connection
+ * @see PreparedStatement
+ * @see ResultSet
+ * @see SQLException
  */
-public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
+public class PayCommonDAOImpl implements CommonDAO<Pay> {
 
     /**
-     * MySQL database connection.
-     */
-    private final Connection connection;
-    
-    /**
-     * a {@code PreparedStatement} for get maximum id from {@code Pay} 
-     * table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for get maximum id from {@code Pay} 
+     * table of {@code TimeClock} schema.
      * @see #getMaxPayId
      */
     private final PreparedStatement getMaxPayId;
     
     /**
-     * a {@code PreparedStatement} for insert a new {@code Pay} object to the 
-     * {@code Pay} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for insert a new {@code Pay} object to the 
+     * {@code Pay} table of {@code TimeClock} schema.
      * @see #insert
      */
     private final PreparedStatement insert;
     
     /**
-     * a {@code PreparedStatement} for delete the last wrong {@code Pay} object
-     * from {@code Pay} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for delete the last wrong {@code Pay} object
+     * from {@code Pay} table of {@code TimeClock} schema.
      * @see #deleteLastIncorrectPay
      */
     private final PreparedStatement deleteLastIncorrectPay;
     
     /**
-     * a {@code PreparedStatement} for delete the last {@code auto_increment} 
+     * A {@code PreparedStatement} for delete the last {@code auto_increment} 
      * value of wrong {@code Pay_id} from {@code Pay} table of 
-     * {@code TimeClock} schema
+     * {@code TimeClock} schema.
      * @see #autoIncrement
      */
     private final PreparedStatement autoIncrement;
 
     /**
-     * Set the {@code PayRepositoryJDBCImpl} object for connection to MySQL
-     * database.
+     * Set the {@code PayCommonDAOImpl} object for connection to MySQL database.
      * 
      * @param connection the MySQL database connection
      * @throws SQLException 
      */
-    public PayRepositoryJDBCImpl(Connection connection) throws SQLException {
-        this.connection = connection;
+    public PayCommonDAOImpl(Connection connection) throws SQLException {
         this.getMaxPayId = connection.prepareStatement("SELECT MAX(Pay_id) FROM Pay");
         this.insert = connection.prepareStatement("INSERT INTO Pay (Pay, Currency) VALUES (?, ?)");
         this.deleteLastIncorrectPay = connection.prepareStatement("DELETE FROM Pay WHERE Pay_id = ?");
@@ -79,10 +70,10 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.model.Pay
-     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
+     * Returns the maximum id from the {@code Pay} table of {@code TimeClock}
+     * schema from MySQL database.
+     * 
+     * @throws SQLException
      */
     @Override
     public int getMaxId() throws SQLException {
@@ -94,10 +85,11 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
+     * Insert E {@code Object} into any table of {@code TimeClock} schema 
+     * in the MySQL database.
+     * 
      * @param pay for inserting
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
+     * @throws SQLException
      */
     @Override
     public void insert(Pay pay) throws SQLException {
@@ -107,9 +99,10 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
+     * Delete the last wrong inserted object from {@code TimeClock} schema
+     * in the MySQL database.
+     * 
+     * @throws SQLException
      */
     @Override
     public void deleteLastIncorrectObject() throws SQLException {
@@ -118,7 +111,9 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
+     * After the deleted last wrong object from database, 
+     * delete the last {@code auto-increment} id number too.
+     * 
      * @throws SQLException 
      * @see hu.gaborkolozsy.timeclock.daos.PayRepository 
      */
@@ -128,13 +123,12 @@ public class PayRepositoryJDBCImpl implements PayRepository<Pay> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.PayRepository}.
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.PayRepository
+     * Before program quit close all opened <code>PreparedStatement</code>.
+     * 
+     * @throws SQLException
      */
     @Override
     public void close() throws SQLException {
-        this.connection.close();
         this.insert.close();
         this.deleteLastIncorrectPay.close();
         this.autoIncrement.close();

@@ -18,14 +18,14 @@ import java.util.Properties;
  * It is possible to add new data to default and store this. 
  * <strong>See ADD tab</strong> in program.
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see java.util.Properties
- * @see java.io.File
- * @see java.io.FileInputStream
- * @see java.io.FileOutputStream
- * @see java.io.IOException
- * @see java.io.FileNotFoundException
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
+ * @see File
+ * @see FileInputStream
+ * @see FileNotFoundException
+ * @see FileOutputStream
+ * @see IOException
+ * @see Properties
  */
 public class Config {
     
@@ -45,8 +45,7 @@ public class Config {
      * @param key the key
      * @param value the value
      * @throws IOException 
-     * @see java.util.Properties#setProperty
-     * @see java.util.Properties#store
+     * @see Properties
      */
     public void saveValue(String key, String value) throws IOException {
         properties.setProperty(key, value);
@@ -59,8 +58,7 @@ public class Config {
      * @param key the key
      * @return the value by the specified key
      * @throws IOException 
-     * @see java.util.Properties#load
-     * @see java.util.Properties#getProperty
+     * @see Properties
      */
     public String getValue(String key) throws IOException {
         properties.load(new FileInputStream(fileName));
@@ -77,8 +75,7 @@ public class Config {
      * @throws FileNotFoundException
      * @throws IOException 
      * @throws NullPointerException if the key is {@code null}
-     * @see java.util.Properties#load
-     * @see java.util.Properties#containsKey
+     * @see Properties
      */
     public boolean isKey(String key) throws IOException {
         properties.load(new FileInputStream(fileName));
@@ -95,4 +92,5 @@ public class Config {
     public boolean fileExists() {
         return new File(fileName).exists();
     }
+    
 }

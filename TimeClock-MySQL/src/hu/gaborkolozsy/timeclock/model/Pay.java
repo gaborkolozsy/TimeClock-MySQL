@@ -9,10 +9,8 @@ package hu.gaborkolozsy.timeclock.model;
  * and use this by calculating the {@code Hourly_pay}, {@code averageHourlyPay} 
  * and {@code totalPay}.
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see timeclock.interfaces.PayRepository
- * @see timeclock.dao.PayRepositoryJDBCImpl
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
  */
 public class Pay {
     
@@ -39,7 +37,6 @@ public class Pay {
 
     /**
      * Get the pay by specified {@code Job}.
-     * 
      * @return pay for job as double value
      */
     public double getPay() {
@@ -48,7 +45,6 @@ public class Pay {
 
     /**
      * Get the {@code currency}'s short code by the specified {@code Job}.
-     * 
      * @return {@code currency} short code
      */
     public String getCurrency() {

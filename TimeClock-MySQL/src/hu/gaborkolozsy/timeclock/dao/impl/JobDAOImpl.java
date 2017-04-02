@@ -4,7 +4,7 @@
  */
 package hu.gaborkolozsy.timeclock.dao.impl;
 
-import hu.gaborkolozsy.timeclock.dao.JobRepository;
+import hu.gaborkolozsy.timeclock.dao.JobDAO;
 import hu.gaborkolozsy.timeclock.model.Job;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,128 +13,121 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 /**
- * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.JobRepository}
- * interface. 
+ * This object implementing the {@code JobDAO} interface.
+ * 
  * <p>
  * It manages the relationship between the {@code Job} object
  * and the MySQL database. 
  * 
- * @author Kolozsy Gábor
- * @version 1.0
- * @see hu.gaborkolozsy.timeclock.model.Job
- * @see hu.gaborkolozsy.timeclock.daos.JobRepository
- * @see java.sql.Connection
- * @see java.sql.PreparedStatement
- * @see java.sql.ResultSet
- * @see java.sql.SQLException 
+ * @author Gabor Kolozsy (gabor.kolozsy.development@gmail.com)
+ * @since 0.0.1-SNAPSHOT
+ * @see Connection
+ * @see PreparedStatement
+ * @see ResultSet
+ * @see SQLException 
+ * @see Timestamp
  */
-public class JobRepositoryJDBCImpl implements JobRepository<Job> {
+public class JobDAOImpl implements JobDAO<Job> {
 
     /**
-     * MySQL database connection.
-     */
-    private final Connection connection;
-    
-    /**
-     * a {@code PreparedStatement} for get {@code Developer_id} 
-     * from {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for get {@code Developer_id} 
+     * from {@code Job} table of {@code TimeClock} schema.
      * @see #getDeveloperId
      */
     private final PreparedStatement getDeveloperId;
     
     /**
-     * a {@code PreparedStatement} for get maximum id from {@code Job} 
-     * table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for get maximum id from {@code Job} 
+     * table of {@code TimeClock} schema.
      * @see #getMaxJobId
      */
     private final PreparedStatement getMaxJobId;
     
     /**
-     * a {@code PreparedStatement} for check {@code Job_number} 
-     * from {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for check {@code Job_number} 
+     * from {@code Job} table of {@code TimeClock} schema.
      * @see #checkJobNumber 
      */
     private final PreparedStatement checkJobNumber;
     
     /**
-     * a {@code PreparedStatement} for check {@code Status} 
-     * from {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for check {@code Status} 
+     * from {@code Job} table of {@code TimeClock} schema.
      * @see #isStatusNull 
      */
     private final PreparedStatement isStatusNull;
     
     /**
-     * a {@code PreparedStatement} for check {@code Status} 
-     * from {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for check {@code Status} 
+     * from {@code Job} table of {@code TimeClock} schema.
      * @see #checkStatus
      */
     private final PreparedStatement checkStatus;
     
     /**
-     * a {@code PreparedStatement} for insert a new {@code Job} object to the 
-     * {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for insert a new {@code Job} object to the 
+     * {@code Job} table of {@code TimeClock} schema.
      * @see #insert 
      */
     private final PreparedStatement insert;
     
     /**
-     * a {@code PreparedStatement} for update the {@code Start_at} column 
-     * to the {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for update the {@code Start_at} column 
+     * to the {@code Job} table of {@code TimeClock} schema.
      * @see #updateStartAt
      */
     private final PreparedStatement updateStartAt;
     
     /**
-     * a {@code PreparedStatement} for update the {@code End_at} column and 
-     * the {@code Status}to the {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for update the {@code End_at} column and 
+     * the {@code Status}to the {@code Job} table of {@code TimeClock} schema.
      * @see #updateEndAtAndStatus
      */
     private final PreparedStatement updateEndAtAndStatus;
     
     /**
-     * a {@code PreparedStatement} for update the {@code To_time} column 
-     * to the {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for update the {@code To_time} column 
+     * to the {@code Job} table of {@code TimeClock} schema.
      * @see #updateToTime
      */
     private final PreparedStatement updateToTime;
     
     /**
-     * a {@code PreparedStatement} for update the {@code To_time} column 
-     * to the {@code Job} table of {@code TimeClock} schema by "WIP"
+     * A {@code PreparedStatement} for update the {@code To_time} column 
+     * to the {@code Job} table of {@code TimeClock} schema by "WIP".
      * @see #updateToTimeByWIP
      */
     private final PreparedStatement updateToTimeByWIP;
     
     /**
-     * a {@code PreparedStatement} for update the {@code In_part} column 
-     * to the {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for update the {@code In_part} column 
+     * to the {@code Job} table of {@code TimeClock} schema.
      * @see #updateInPart
      */
     private final PreparedStatement updateInPart;
     
     /**
-     * a {@code PreparedStatement} for delete the last wrong {@code Job} object
-     * from {@code Job} table of {@code TimeClock} schema
+     * A {@code PreparedStatement} for delete the last wrong {@code Job} object
+     * from {@code Job} table of {@code TimeClock} schema.
      * @see #deleteLastIncorrectJob
      */
     private final PreparedStatement deleteLastIncorrectJob;
     
     /**
-     * a {@code PreparedStatement} for delete the last {@code auto_increment} 
+     * A {@code PreparedStatement} for delete the last {@code auto_increment} 
      * value of wrong {@code Job_id} from {@code Job} table of 
-     * {@code TimeClock} schema
+     * {@code TimeClock} schema.
      * @see #autoIncrement
      */
     private final PreparedStatement autoIncrement;
     
     /**
-     * Set the {@code JpbRepositoryJDBCImpl} object for connection to MySQL
-     * database.
+     * Set the {@code JobDAOImpl} object for connection to MySQL database.
+     * 
      * @param connection the MySQL database connection
      * @throws SQLException 
      */
-    public JobRepositoryJDBCImpl(Connection connection) throws SQLException {
-        this.connection = connection;
+    public JobDAOImpl(Connection connection) throws SQLException {
         this.getDeveloperId = connection.prepareStatement("SELECT Developer_id FROM Developer WHERE First_name = ?");
         this.getMaxJobId = connection.prepareStatement("SELECT MAX(Job_id) FROM Job");
         this.checkJobNumber = connection.prepareStatement("SELECT Job_id FROM Job WHERE Project = ? and Package = ? and Class = ? and Job_number = ?");
@@ -151,11 +144,12 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Returns the developer's id for storing in the {@code Job} table of 
+     * {@code TimeClock} schema.
+     * 
      * @param developerFirstName for getting id
      * @return the developer id for insert
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public int getDeveloperId(String developerFirstName) throws SQLException {
@@ -168,10 +162,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Returns the maximum id from {@code Job} table of {@code TimeClock}
+     * schema from MySQL database.
+     * 
      * @return maximum {@code Job} id from {@code Job} table
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public int getMaxId() throws SQLException {
@@ -183,11 +178,12 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Check the {@code Job_number} by the specified {@code Job}
+     * is exists or not.
+     * 
      * @param job for identification the correct {@code Job}
      * @return {@code true} is if the {@code Job_number} not used
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public boolean checkJobNumber(Job job) throws SQLException {
@@ -200,11 +196,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Returns true if the {@code Status} column of {@code Job} table is null.
+     * 
      * @param job for identification the correct {@code Job}
      * @return {@code true} is the {@code Status} column is null
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public boolean isStatusNull(Job job) throws SQLException {
@@ -221,11 +217,12 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Returns <strong>"WIP"</strong> if the {@code Job} "work in progress"
+     * or <strong>"Done"</strong> if it's done.
+     * 
      * @param job for identification the correct {@code Job}
      * @return the {@code Job}'s status("WIP" or "Done")
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public String checkStatus(Job job) throws SQLException {
@@ -241,10 +238,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Insert {@code Job} into the {@code Job} table of {@code TimeClock} schema 
+     * in the MySQL database.
+     * 
      * @param job for inserting
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public void insert(Job job) throws SQLException {
@@ -261,10 +259,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Updateing the {@code Start_at} column in the {@code Job} table if the
+     * {@code Status} column <strong>"WIP"</strong> is by the new start.
+     * 
      * @param job for identification the correct {@code Job}
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public void updateStartAt(Job job) throws SQLException {
@@ -277,10 +276,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Updateing the {@code End_at} and the {@code Status} column in the 
+     * {@code Job} table if the job is end.
+     * 
      * @param job for identification the correct {@code Job}
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public void updateEndAtAndStatus(Job job) throws SQLException {
@@ -294,10 +294,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Updateing the {@code To_time} column in {@code Job} table if {@code Job}
+     * is done.
+     * 
      * @param job for identification the correct {@code Job}
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public void updateToTime(Job job) throws SQLException {
@@ -309,10 +310,11 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * Updateing the {@code To_time} column in {@code Job} table if {@code Job}
+     * is "work in progress".
+     * 
      * @param job for identification the correct {@code Job}
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * @throws SQLException
      */
     @Override
     public void updateToTimeByWIP(Job job) throws SQLException {
@@ -324,7 +326,8 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
+     * In how many part will done the specified {@code Job}.
+     * 
      * @param job for identification the correct {@code Job}
      * @throws SQLException 
      * @see hu.gaborkolozsy.timeclock.daos.JobRepository
@@ -339,9 +342,10 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * Delete the last wrong inserted object from {@code TimeClock} schema
+     * in the MySQL database.
+     * 
+     * @throws SQLException
      */
     @Override
     public void deleteLastIncorrectObject() throws SQLException {
@@ -350,9 +354,12 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
     
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository 
+     * After the deleted last wrong object from database, 
+     * delete the last {@code auto-increment} id number too. 
+     * <p>
+     * By next inserted new object the <code>id</code> will correct again.
+     * 
+     * @throws SQLException
      */
     @Override
     public void autoIncrement() throws SQLException {
@@ -360,13 +367,13 @@ public class JobRepositoryJDBCImpl implements JobRepository<Job> {
     }
 
     /**
-     * <strong>See >>></strong> {@link hu.gaborkolozsy.timeclock.daos.JobRepository}.
-     * @throws SQLException 
-     * @see hu.gaborkolozsy.timeclock.daos.JobRepository
+     * Before program quit close all opened <code>PreparedStatement</code>
+     * and database <code>Connection</code> too.
+     * 
+     * @throws SQLException
      */
     @Override
     public void close() throws SQLException {
-        this.connection.close();
         this.getDeveloperId.close();
         this.checkJobNumber.close();
         this.isStatusNull.close();
