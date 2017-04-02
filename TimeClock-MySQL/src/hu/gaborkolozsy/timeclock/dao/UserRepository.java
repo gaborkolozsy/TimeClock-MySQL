@@ -2,11 +2,11 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package hu.gaborkolozsy.timeclock.daos;
+package hu.gaborkolozsy.timeclock.dao;
 
-import java.io.FileNotFoundException;
 import hu.gaborkolozsy.timeclock.TimeClockException;
 import hu.gaborkolozsy.timeclock.model.User;
+import java.io.FileNotFoundException;
 
 /**
  * The <strong>UserRepository</strong> interface provide some method 

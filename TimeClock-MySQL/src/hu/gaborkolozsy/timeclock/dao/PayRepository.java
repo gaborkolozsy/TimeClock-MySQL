@@ -2,7 +2,7 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package hu.gaborkolozsy.timeclock.daos;
+package hu.gaborkolozsy.timeclock.dao;
 
 import java.sql.SQLException;
 

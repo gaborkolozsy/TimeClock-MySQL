@@ -5,16 +5,16 @@
 package hu.gaborkolozsy.timeclock;
 
 import hu.gaborkolozsy.timeclock.config.Config;
+import hu.gaborkolozsy.timeclock.dao.JobRepository;
+import hu.gaborkolozsy.timeclock.dao.PayInfoRepository;
+import hu.gaborkolozsy.timeclock.dao.PayRepository;
+import hu.gaborkolozsy.timeclock.dao.TimeInfoRepository;
+import hu.gaborkolozsy.timeclock.dao.UserRepository;
 import hu.gaborkolozsy.timeclock.dao.impl.JobRepositoryJDBCImpl;
 import hu.gaborkolozsy.timeclock.dao.impl.PayInfoRepositoryJDBCImpl;
 import hu.gaborkolozsy.timeclock.dao.impl.PayRepositoryJDBCImpl;
 import hu.gaborkolozsy.timeclock.dao.impl.TimeInfoRepositoryJDBCImpl;
 import hu.gaborkolozsy.timeclock.dao.impl.UserRepositoryBINImpl;
-import hu.gaborkolozsy.timeclock.daos.JobRepository;
-import hu.gaborkolozsy.timeclock.daos.PayInfoRepository;
-import hu.gaborkolozsy.timeclock.daos.PayRepository;
-import hu.gaborkolozsy.timeclock.daos.TimeInfoRepository;
-import hu.gaborkolozsy.timeclock.daos.UserRepository;
 import hu.gaborkolozsy.timeclock.model.Job;
 import hu.gaborkolozsy.timeclock.model.Pay;
 import hu.gaborkolozsy.timeclock.model.PayInfo;

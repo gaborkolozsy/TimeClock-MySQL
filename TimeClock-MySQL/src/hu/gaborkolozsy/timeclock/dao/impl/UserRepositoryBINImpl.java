@@ -4,6 +4,9 @@
  */
 package hu.gaborkolozsy.timeclock.dao.impl;
 
+import hu.gaborkolozsy.timeclock.TimeClockException;
+import hu.gaborkolozsy.timeclock.dao.UserRepository;
+import hu.gaborkolozsy.timeclock.model.User;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,9 +16,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import hu.gaborkolozsy.timeclock.TimeClockException;
-import hu.gaborkolozsy.timeclock.daos.UserRepository;
-import hu.gaborkolozsy.timeclock.model.User;
 
 /**
  * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.UserRepository}
