@@ -2,11 +2,11 @@
  * Copyright (c) 2016, by Gábor Kolozsy. All rights reserved.
  * 
  */
-package hu.gaborkolozsy.timeclock.daos;
+package hu.gaborkolozsy.timeclock.dao;
 
-import java.sql.SQLException;
-import hu.gaborkolozsy.timeclock.model.PayInfo;
 import hu.gaborkolozsy.timeclock.model.Job;
+import hu.gaborkolozsy.timeclock.model.PayInfo;
+import java.sql.SQLException;
 
 /**
  * The <strong>PayInfoRepository</strong> interface extends the 

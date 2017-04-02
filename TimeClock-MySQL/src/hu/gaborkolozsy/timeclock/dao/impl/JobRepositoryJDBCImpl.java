@@ -4,13 +4,13 @@
  */
 package hu.gaborkolozsy.timeclock.dao.impl;
 
+import hu.gaborkolozsy.timeclock.dao.JobRepository;
+import hu.gaborkolozsy.timeclock.model.Job;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import hu.gaborkolozsy.timeclock.daos.JobRepository;
-import hu.gaborkolozsy.timeclock.model.Job;
 
 /**
  * This object implementing the {@link hu.gaborkolozsy.timeclock.daos.JobRepository}
