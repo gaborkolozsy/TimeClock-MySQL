@@ -1,3 +1,5 @@
+[![GitHub version](https://badge.fury.io/gh/gaborkolozsy%2FTimeClock-MySQL.svg)](https://badge.fury.io/gh/gaborkolozsy%2FTimeClock-MySQL)
+
 # TimeClock-MySQL
 
 Database Tag  |  Time Tag
