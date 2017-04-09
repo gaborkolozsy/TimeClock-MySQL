@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gaborkolozsy/TimeClock-MySQL.svg?branch=develop)](https://travis-ci.org/gaborkolozsy/TimeClock-MySQL)
+[![Build Status](https://travis-ci.org/gaborkolozsy/TimeClock-MySQL.svg)](https://travis-ci.org/gaborkolozsy/TimeClock-MySQL)
 [![GitHub version](https://badge.fury.io/gh/gaborkolozsy%2FTimeClock-MySQL.svg)](https://badge.fury.io/gh/gaborkolozsy%2FTimeClock-MySQL)
 
 # TimeClock-MySQL
