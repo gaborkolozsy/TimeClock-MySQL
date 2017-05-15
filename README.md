@@ -1,4 +1,6 @@
-# TimeClock-MySQL - Java project with MySQL database.
+# TimeClock-MySQL
+
+Java project with MySQL database.
 
 [![Build Status](https://travis-ci.org/gaborkolozsy/TimeClock-MySQL.svg)](https://travis-ci.org/gaborkolozsy/TimeClock-MySQL)
 [![Codacy grade](https://img.shields.io/codacy/grade/e27821fb6289410b8f58338c7e0bc686.svg)](https://www.codacy.com/app/gaborkolozsy/TimeClock-MySQL)
@@ -25,9 +27,11 @@ have to start before launch this program.
 
 ## Construction
 
-[UML Diagramm](https://cloud.githubusercontent.com/assets/23102020/26047729/99609d38-3954-11e7-8c16-aad9477a176b.png)
+* [UML Class Diagram](https://cloud.githubusercontent.com/assets/23102020/26047729/99609d38-3954-11e7-8c16-aad9477a176b.png)
 
-[⬆︎ UP](#screenshot)
+<br>
+
+[⬆︎ UP](#timeclock-mysql)
 
 # &nbsp;
 <br>
