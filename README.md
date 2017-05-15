@@ -27,6 +27,9 @@ have to start before launch this program.
 
 ## Construction
 
+The application is a simple java project and it was edited in NetBeans.
+So, the project is a NetBeans project.
+
 * [UML Class Diagram](https://cloud.githubusercontent.com/assets/23102020/26047729/99609d38-3954-11e7-8c16-aad9477a176b.png)
 
 <br>
