@@ -1,4 +1,5 @@
 /manifest.mf
-/nbproject/project.xml
 /nbproject/genfiles.properties
 /user.bin
+/build/
+/dist/
