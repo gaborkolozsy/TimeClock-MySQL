@@ -13,7 +13,7 @@ Database Tag  |  Time Tag
 :------------:|:------------:
 ![](https://cloud.githubusercontent.com/assets/23102020/26047776/ce0f0b64-3954-11e7-98a8-851ed640f689.png) | ![](https://cloud.githubusercontent.com/assets/23102020/26047799/e62b3fba-3954-11e7-95fe-f9fa2c327384.png)
 
-## Content of table
+## Table of Contents
 
 * [Screenshot](#screenshot)
 * [Description](#description)
